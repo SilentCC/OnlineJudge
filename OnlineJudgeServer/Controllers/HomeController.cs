@@ -76,7 +76,7 @@ namespace OnlineJudgeServer.Controllers
                     review_num = new Random().Next(80,100),
                     title = x.Title,
                     total_num = new Random().Next(80,100),
-                    total_score = (double)((int)(new Random().NextDouble()*10)/10),
+                    total_score = (double)((int)(new Random().NextDouble()*10)*10)/10,
                     translator = new List<string>(),
                     words = x.Word
 
