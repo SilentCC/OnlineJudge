@@ -82,7 +82,15 @@ namespace OnlineJudgeServer.Controllers
 
                 });
             }
-            return Ok(res);
+
+            var ans = new
+            {
+                start = 0,
+                count = res.Count,
+                total = res.Count,
+                books = res
+            };
+            return Ok(ans);
         }
         
         private List<string> Convert(string x)
