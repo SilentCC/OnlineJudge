@@ -21,7 +21,7 @@ namespace OnlineJudgeServer
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>()
-                        .UseUrls("http://*:6666");
+                        .UseUrls("http://*:800");
                 });
     }
 }

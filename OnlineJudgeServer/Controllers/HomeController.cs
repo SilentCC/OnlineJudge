@@ -38,13 +38,13 @@ namespace OnlineJudgeServer.Controllers
             return Ok(_libraryContext.Books.ToList( ));
         }
 
-        [HttpPost("/books/search")]
-        public IActionResult SearchBooks([FromBody] SearchInfo searchInfo)
+        [HttpGet("/books/search")]
+        public IActionResult SearchBooks(string keyword ,int start)
         {
             List<Books> result = new List<Books>();
-            if (searchInfo.Start == 0)
+            if (start == 0)
             {
-                result = _libraryContext.Books.Where(item => item.Title.Contains(searchInfo.KeyWord)).ToList();
+                result = _libraryContext.Books.Where(item => item.Title.Contains(keyword)).ToList();
             }
 
             return Ok(result);
