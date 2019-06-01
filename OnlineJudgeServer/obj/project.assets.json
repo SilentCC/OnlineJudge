@@ -13,10 +13,7 @@
         },
         "runtime": {
           "lib/netcoreapp3.0/Microsoft.AspNetCore.JsonPatch.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.NETCore.App"
-        ]
+        }
       },
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson/3.0.0-preview5-19227-01": {
         "type": "package",
@@ -30,10 +27,7 @@
         },
         "runtime": {
           "lib/netcoreapp3.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.NETCore.App"
-        ]
+        }
       },
       "Microsoft.CSharp/4.6.0-preview5.19224.8": {
         "type": "package",
@@ -2747,19 +2741,15 @@
         "/usr/local/share/install/dotnet-3.0-preview5/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/Users/xiaokang/.nuget/NuGet/NuGet.Config"
+        "/Users/xiaokang/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.0"
       ],
       "sources": {
+        "http://nuget.cnitblog.com/nuget/core": {},
         "https://api.nuget.org/v3/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+        "https://nuget.cnblogs.com/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.0": {
@@ -2780,7 +2770,7 @@
             "version": "[3.0.0-preview5-19227-01, )"
           },
           "Microsoft.EntityFrameworkCore.Tools": {
-            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers",
             "suppressParent": "All",
             "target": "Package",
             "version": "[2.2.4, )"
@@ -2800,17 +2790,7 @@
           "net461"
         ],
         "assetTargetFallback": true,
-        "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[3.0.0-preview5-27626-15, 3.0.0-preview5-27626-15]"
-          }
-        ],
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App",
-          "Microsoft.NETCore.App"
-        ]
+        "warn": true
       }
     }
   }

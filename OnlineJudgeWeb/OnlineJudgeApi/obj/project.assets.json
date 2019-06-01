@@ -72,7 +72,7 @@
   },
   "libraries": {
     "Microsoft.AspNetCore.JsonPatch/3.0.0-preview5-19227-01": {
-      "sha512": "pwKI1d0w3mk0r8wZLOptvkXud3W8zPgR50ijLDo0wz5fFU0Cvn/wOE1uhLZf2cRt2ezgnQngw7ofX9Tf+cJUdQ==",
+      "sha512": "5rcfW8LfDEkRfUvwexN7nWTNyWol4qxG5UO12DsI9ODbew8B/buZAhe+xKDOZdVGx6F6W8lhFtoR3eSb5hMRIg==",
       "type": "package",
       "path": "microsoft.aspnetcore.jsonpatch/3.0.0-preview5-19227-01",
       "files": [
@@ -85,7 +85,7 @@
       ]
     },
     "Microsoft.AspNetCore.Mvc.NewtonsoftJson/3.0.0-preview5-19227-01": {
-      "sha512": "JbRhna56lTPYC+Eci4kSWhvxuoyKfsmhE1c/+Vt1+DObZ9oIo5bg4XxnLwSPUEA9zsGYz3joNnpW0Eu17cchvQ==",
+      "sha512": "yQOvfTWdI8r9y7gsiDOTLAeBnD7P/tizCgnhIJHZro9zajFF2xaeloKVY5T2bcuN65pB7f8ZjjN3KoonjjZSBg==",
       "type": "package",
       "path": "microsoft.aspnetcore.mvc.newtonsoftjson/3.0.0-preview5-19227-01",
       "files": [
@@ -98,7 +98,7 @@
       ]
     },
     "Microsoft.CSharp/4.6.0-preview5.19224.8": {
-      "sha512": "NKRaujZapqCS82W6XW3yuAr5BHM+TnpCejaw44PhXsqQz0JgR+QqvdYwaTs8b7HetHZWi+1L9gZcA6mozHzvuA==",
+      "sha512": "fu176b3FSDUrVstETygImEH8CSdl+m+nitC2/U4e4sNlixNsgQoSqZHMcbokgvHB+X4pNe14vmU+HxvwHA5gdg==",
       "type": "package",
       "path": "microsoft.csharp/4.6.0-preview5.19224.8",
       "files": [
@@ -184,7 +184,7 @@
       ]
     },
     "Newtonsoft.Json/12.0.1": {
-      "sha512": "jmVyoEyk0In8r+AObYQyFKVFm7uSRzE0XSHSbEtBJcZDMV6DqJoyB4FLcHwprPVhAh826so0db3DIKXVnpGoPA==",
+      "sha512": "pBR3wCgYWZGiaZDYP+HHYnalVnPJlpP1q55qvVb+adrDHmFMDc1NAKio61xTwftK3Pw5h7TZJPJEEVMd6ty8rg==",
       "type": "package",
       "path": "newtonsoft.json/12.0.1",
       "files": [
@@ -223,7 +223,7 @@
       ]
     },
     "Newtonsoft.Json.Bson/1.0.2": {
-      "sha512": "M52Tfhn8KzsfmTKHl9/KjVHvA6zWxuYa46HZ3ldqlT4U3N/pEeHvwtyzYx+3/jVnLb4t62hB2zWNVwDGl0VHfg==",
+      "sha512": "QYFyxhaABwmq3p/21VrZNYvCg3DaEoN/wUuw5nmfAf0X3HLjgupwhkEWdgfb9nvGAUIv3osmZoD3kKl4jxEmYQ==",
       "type": "package",
       "path": "newtonsoft.json.bson/1.0.2",
       "files": [
@@ -251,37 +251,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\xiaokang\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/Users/xiaokang/.nuget/packages/": {},
+    "/usr/local/share/install/dotnet-3.0-preview5/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "\\\\Mac\\Home\\Work\\OnlineJudge\\OnlineJudge\\OnlineJudgeApi\\OnlineJudgeApi\\OnlineJudgeApi.csproj",
+      "projectUniqueName": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeWeb/OnlineJudgeApi/OnlineJudgeApi.csproj",
       "projectName": "OnlineJudgeApi",
-      "projectPath": "\\\\Mac\\Home\\Work\\OnlineJudge\\OnlineJudge\\OnlineJudgeApi\\OnlineJudgeApi\\OnlineJudgeApi.csproj",
-      "packagesPath": "C:\\Users\\xiaokang\\.nuget\\packages\\",
-      "outputPath": "\\\\Mac\\Home\\Work\\OnlineJudge\\OnlineJudge\\OnlineJudgeApi\\OnlineJudgeApi\\obj\\",
+      "projectPath": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeWeb/OnlineJudgeApi/OnlineJudgeApi.csproj",
+      "packagesPath": "/Users/xiaokang/.nuget/packages/",
+      "outputPath": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeWeb/OnlineJudgeApi/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "/usr/local/share/install/dotnet-3.0-preview5/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\xiaokang\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/xiaokang/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "http://nuget.cnitblog.com/nuget/core": {},
         "https://api.nuget.org/v3/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+        "https://nuget.cnblogs.com/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.0": {

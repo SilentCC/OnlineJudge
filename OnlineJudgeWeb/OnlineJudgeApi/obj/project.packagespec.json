@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeApi/OnlineJudgeApi/OnlineJudgeApi.csproj",
+    "projectUniqueName": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeWeb/OnlineJudgeApi/OnlineJudgeApi.csproj",
     "projectName": "OnlineJudgeApi",
-    "projectPath": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeApi/OnlineJudgeApi/OnlineJudgeApi.csproj",
-    "outputPath": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeApi/OnlineJudgeApi/obj/",
+    "projectPath": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeWeb/OnlineJudgeApi/OnlineJudgeApi.csproj",
+    "outputPath": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeWeb/OnlineJudgeApi/obj/",
     "projectStyle": "PackageReference",
     "fallbackFolders": [
       "/usr/local/share/install/dotnet-3.0-preview5/sdk/NuGetFallbackFolder"

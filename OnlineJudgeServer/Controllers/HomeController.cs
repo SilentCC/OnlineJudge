@@ -37,5 +37,24 @@ namespace OnlineJudgeServer.Controllers
         {
             return Ok(_libraryContext.Books.ToList( ));
         }
+
+        [HttpPost("/books/search")]
+        public IActionResult SearchBooks([FromBody] SearchInfo searchInfo)
+        {
+            List<Books> result = new List<Books>();
+            if (searchInfo.Start == 0)
+            {
+                result = _libraryContext.Books.Where(item => item.Title.Contains(searchInfo.KeyWord)).ToList();
+            }
+
+            return Ok(result);
+        }
+        
+    }
+
+    public class SearchInfo
+    {
+        public string KeyWord;
+        public int Start;
     }
 }
