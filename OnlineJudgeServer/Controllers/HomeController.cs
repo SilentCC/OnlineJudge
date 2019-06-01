@@ -68,7 +68,7 @@ namespace OnlineJudgeServer.Controllers
                         medium = "@string",
                         small = "https://www.library-online.cn/imgs/picture-ISBN-978-7-5004-9379-2.jpg"
                     },
-                    isbn = long.Parse(x.Isbn.Substring(0,10)),
+                    isbn = long.Parse(x.Isbn.Substring(0,8)),
                     pages = x.Page,
                     price = x.Price,
                     pubdate = x.Pubdate.ToString(),
