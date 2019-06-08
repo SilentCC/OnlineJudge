@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container-fluid py-3">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card card-body">
+                <h3 class="text-center mb-4">Sign-up</h3>
+                <div class="alert alert-danger">
+                    <a class="close font-weight-light" data-dismiss="alert" href="#">×</a>Password is too short.
+                </div>
+                <fieldset>
+                    <div class="form-group">
+                        <input class="form-control input-lg" placeholder="昵称" name="userName" id="userName" type="text">
+                    </div>
+                    <div class="form-group has-error">
+                        <input class="form-control input-lg" placeholder="邮箱" name="email" id="email" type="text">
+                    </div>
+                    <div class="form-group has-success">
+                        <input class="form-control input-lg" placeholder="密码" name="password" id="password" value="" type="password">
+                    </div>
+                    <div class="form-group has-success">
+                        <input class="form-control input-lg" placeholder="确认密码" name="password" value="" type="password">
+                    </div>
+
+                    <div class="checkbox">
+                        <label class="small">
+                            <input name="terms" type="checkbox">I have read and agree to the <a href="#">terms of service</a>
+                        </label>
+                    </div>
+                    <input class="btn btn-lg btn-primary btn-block" value="Sign Me Up" onclick="register()" type="submit">
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    
+    function register() {
+        
+        var userName = $("#userName").val();
+        var password = $("#password").val();
+        var email = $("#email").val();
+
+        var data = {
+            UserName: userName,
+            Password: password,
+            Email:email
+        }
+
+        $.ajax({
+            type: "post",
+            url: "http://localhost:4000/api/Users/create",
+            contentType: "application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            data: JSON.stringify(data),
+            dataType: "json",
+            success: function(data) {
+
+                if (data.success == 1) {
+                    setCookie("userName", userName,30);
+                    window.location.href= "/";
+                }
+ 
+                else {
+                    alert("注册出错啦");
+                }
+            },
+            error: function(data) {
+                alert(data);
+            }
+        });
+    }
+
+</script>

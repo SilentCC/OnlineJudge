@@ -1,0 +1,158 @@
+﻿<h1 class="display-4" id="title"></h1>
+<br/>
+
+<div class="card w-75 shadow-lg">
+    <div class="card-body" style="margin:15px">
+        <h6 class="card-title">题目描述：</h6>
+        <p class="card-text" style="white-space:pre" id="content"></p>
+        <br/>
+        <h6 class="card-title">样例输入：</h6>
+        <p class="card-text" id="exampleInput"></p>
+        <br/>
+        <h6 class="card-title">样例输出：</h6>
+        <p class="card-text" id="exampleOutPut"></p>
+    </div>
+</div>
+
+<br/>
+<br/>
+
+<div class="card w-105 shadow-lg">
+    <br/>
+   
+    <div class="form-group" style="margin:15px">
+        <div class="col-sm-2">
+            <label class="display-5">选择编译器</label>
+        </div>
+        <div class="col-sm-4">
+            <select class="form-control">
+                <option>
+                    gcc
+                </option>
+                <option>
+                    g++
+                </option>
+            </select>
+        </div>
+        <br/>
+        <div class="col-sm-10">
+            <textarea class="form-control" rows="20" id="sourceCode"></textarea>
+        </div>
+        <br/>
+        <div class="col-sm-3">
+            <button type="button" onclick="SubmitJudge()" class="btn btn-secondary btn-lg btn-block">
+                <a class="display-5">提交</a>
+            </button>
+        </div>
+    </div>
+    <br/>
+</div>
+<br/>
+<hr/>
+<br/>
+<div id="result">
+
+</div>
+
+
+<script type="text/javascript">
+
+    var id;
+    window.onload = function() {
+
+        id = getQueryVariable("problemId");
+
+        $.ajax({
+            type: 'get',
+            url: "http://localhost:4000/api/Problems/Detail/" + id,
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            success: function(data) {
+
+                $("#title").html(data.title);
+                $("#content").html(data.content);
+                $("#exampleInput").html(data.exampleInput);
+                $("#exampleOutPut").html(data.exampleOutPut);
+
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function SubmitJudge() {
+
+        var userName = getCookie("userName");
+        if (userName == "") {
+            window.location.href = "/Users/create";
+        }
+
+        var preHtml = $("#result").html();
+
+        var html = "<div class='alert alert-secondary' id='submitId'>";
+        html += "<div class='clearfix'>";
+        html += "<strong>Judging...</strong>";
+        html += "<div class='spinner-border float-right' role='status'>";
+        html += "<span class='sr-only'>Loading...</span>";
+        html += "</div></div></div>";
+
+        html += preHtml;
+
+        $("#result").html(html);
+
+        var code = $("#sourceCode").val();
+        var data = {
+            ProblemId: id,
+            UserId: 1,
+            CodeType: 1,
+            CodeSuffix: "cpp",
+            SourceCode: code
+        };
+
+        $.ajax({
+            type: "post",
+            url: "http://localhost:4000/api/Judge/submit",
+            contentType: "application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            data: JSON.stringify(data),
+            dataType: "json",
+            success: function(data) {
+
+                $("#submitId").empty();
+
+
+                if (data.judgeStatus == 2) {
+
+                    $("#submitId").attr("class", "alert alert-success");
+                } else {
+                    $("#submitId").attr("class", "alert alert-danger");
+                }
+
+                $("#submitId").html(data.judgeResult);
+
+                $("#submitId").attr("id", "submit" + data.submitId);
+
+            }
+        });
+
+    }
+
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == variable) {
+                return pair[1];
+            }
+        }
+        return(false);
+    }
+
+</script>

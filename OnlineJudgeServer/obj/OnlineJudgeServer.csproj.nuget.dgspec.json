@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj": {}
+    "/Users/xiaokang/Desktop/OnlineJudgeServer/OnlineJudgeServer.csproj": {}
   },
   "projects": {
-    "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj": {
+    "/Users/xiaokang/Desktop/OnlineJudgeServer/OnlineJudgeServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj",
+        "projectUniqueName": "/Users/xiaokang/Desktop/OnlineJudgeServer/OnlineJudgeServer.csproj",
         "projectName": "OnlineJudgeServer",
-        "projectPath": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj",
+        "projectPath": "/Users/xiaokang/Desktop/OnlineJudgeServer/OnlineJudgeServer.csproj",
         "packagesPath": "/Users/xiaokang/.nuget/packages/",
-        "outputPath": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeServer/obj/",
+        "outputPath": "/Users/xiaokang/Desktop/OnlineJudgeServer/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/install/dotnet-3.0-preview5/sdk/NuGetFallbackFolder"
@@ -20,7 +20,7 @@
           "/Users/xiaokang/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.0"
+          "netcoreapp2.2"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {},
@@ -32,7 +32,7 @@
           "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.0": {
+          "netcoreapp2.2": {
             "projectReferences": {}
           }
         },
@@ -43,23 +43,28 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.0": {
+        "netcoreapp2.2": {
           "dependencies": {
-            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
-              "target": "Package",
-              "version": "[3.0.0-preview5-19227-01, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "Microsoft.AspNetCore.App": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[2.2.4, )"
-            },
-            "Microsoft.NETCore.Platforms": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.0.0-preview5.19224.8, )",
+              "version": "[2.2.0, )",
               "autoReferenced": true
+            },
+            "Microsoft.AspNetCore.Razor.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[2.2.3, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
@@ -70,17 +75,7 @@
             "net461"
           ],
           "assetTargetFallback": true,
-          "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[3.0.0-preview5-27626-15, 3.0.0-preview5-27626-15]"
-            }
-          ],
-          "frameworkReferences": [
-            "Microsoft.AspNetCore.App",
-            "Microsoft.NETCore.App"
-          ]
+          "warn": true
         }
       }
     }

@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1 class="display-4">题库列表</h1>
+
+<br/>
+<div id="problemList">
+    
+</div>
+
+
+<script type="text/javascript">
+
+    window.onload = function() {
+
+        $.ajax({
+            type: 'get',
+            url: "http://localhost:4000/api/Problems",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            success: function(data) {
+
+                $.each(data,
+                    function(i, term) {
+
+                        var html = "<div class='card shadow-sm'>";
+                        html += "<div class='card-body'>";
+                        html += "<a href='Problems/Detail?problemId="+term.problemId+"'>" + term.problemId + " . " + term.title + "</a>";
+                        html += "</div></div><br />";
+                        $("#problemList").append(html);
+                    });
+
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
+    }
+
+</script>

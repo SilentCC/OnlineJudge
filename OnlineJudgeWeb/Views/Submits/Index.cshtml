@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1 class="display-4">提交列表</h1>
+<br/>
+<div id="submitList">
+    
+</div>
+
+
+<script type="text/javascript">
+
+    window.onload = function() {
+
+        $.ajax({
+            type: 'get',
+            url: "http://localhost:4000/api/Submits",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            success: function(data) {
+
+                $.each(data,
+                    function(i, term) {
+
+                        var cla = "";
+                        if (term.status == "Accept")
+                            cla = "alert alert-success";
+                        else
+                            cla = "alert alert-danger";
+                        var html = "<div class='"+cla+"' style='height:50px' id='submitId'>";
+                        html += "<a style='float:left'>"+"         "+term.id+".         "+term.title+"</a>"
+                        html += "<a style='float:right'>" + term.userName + "         " + term.status + "          </a>";
+                        html += "</div>";
+                     
+                        $("#submitList").append(html);
+                    });
+
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
+    }
+
+</script>
