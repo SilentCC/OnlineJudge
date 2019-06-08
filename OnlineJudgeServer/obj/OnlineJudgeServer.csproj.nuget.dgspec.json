@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/xiaokang/Desktop/OnlineJudgeServer/OnlineJudgeServer.csproj": {}
+    "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj": {}
   },
   "projects": {
-    "/Users/xiaokang/Desktop/OnlineJudgeServer/OnlineJudgeServer.csproj": {
+    "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/xiaokang/Desktop/OnlineJudgeServer/OnlineJudgeServer.csproj",
+        "projectUniqueName": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj",
         "projectName": "OnlineJudgeServer",
-        "projectPath": "/Users/xiaokang/Desktop/OnlineJudgeServer/OnlineJudgeServer.csproj",
+        "projectPath": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj",
         "packagesPath": "/Users/xiaokang/.nuget/packages/",
-        "outputPath": "/Users/xiaokang/Desktop/OnlineJudgeServer/obj/",
+        "outputPath": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeServer/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/install/dotnet-3.0-preview5/sdk/NuGetFallbackFolder"
