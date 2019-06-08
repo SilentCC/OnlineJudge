@@ -1,35 +1,29 @@
 {
   "format": 1,
   "restore": {
-    "/Users/xiaokang/Desktop/OnlineJudgeServer/OnlineJudgeServer.csproj": {}
+    "/root/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj": {}
   },
   "projects": {
-    "/Users/xiaokang/Desktop/OnlineJudgeServer/OnlineJudgeServer.csproj": {
+    "/root/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/xiaokang/Desktop/OnlineJudgeServer/OnlineJudgeServer.csproj",
+        "projectUniqueName": "/root/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj",
         "projectName": "OnlineJudgeServer",
-        "projectPath": "/Users/xiaokang/Desktop/OnlineJudgeServer/OnlineJudgeServer.csproj",
-        "packagesPath": "/Users/xiaokang/.nuget/packages/",
-        "outputPath": "/Users/xiaokang/Desktop/OnlineJudgeServer/obj/",
+        "projectPath": "/root/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/root/OnlineJudge/OnlineJudgeServer/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/install/dotnet-3.0-preview5/sdk/NuGetFallbackFolder"
+          "/root/dotnet-2.2/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/xiaokang/.nuget/NuGet/NuGet.Config"
+          "/root/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp2.2": {
