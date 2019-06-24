@@ -1,3 +1,5 @@
+OnlineJudgeServer/obj/OnlineJudgeServer.csproj.nuget.cache
+OnlineJudgeServer/obj
 */.idea
 .idea/
 *.obj
@@ -8,6 +10,7 @@
 _ReSharper*/
 [Bb]in
 [Dd]ebug*/
+*/obj/
 obj/
 *.pdb
 src/packages/*/

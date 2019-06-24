@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
@@ -30,7 +31,11 @@ namespace OnlineJudgeServer.Controllers
         [HttpGet("api/Problems")]
         public async Task<IActionResult> IndexApi()
         {
+            var stopWatch = Stopwatch.StartNew();
+      
             var result = await _context.Problems.ToListAsync();
+            
+            Console.WriteLine(stopWatch.ElapsedMilliseconds+"ms");
 
             return Ok(result);
         }

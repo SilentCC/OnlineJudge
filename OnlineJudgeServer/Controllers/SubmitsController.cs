@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnlineJudgeServer.Models;
+using System.Diagnostics;
 
 namespace OnlineJudgeServer.Controllers
 {
@@ -29,6 +30,7 @@ namespace OnlineJudgeServer.Controllers
         [HttpGet("api/Submits")]
         public async Task<IActionResult> IndexApi()
         {
+            var stopWatch = Stopwatch.StartNew();
             var submit = await _context.Submits.OrderByDescending(m => m.SubmitTime).AsNoTracking().ToListAsync();
             var result = new List<object>();
             foreach (var sub in submit)
@@ -44,6 +46,8 @@ namespace OnlineJudgeServer.Controllers
                     submitTime = sub.SubmitTime
                 });
             }
+             
+            Console.WriteLine(stopWatch.ElapsedMilliseconds+"ms");
            
             return Ok(result);
         }

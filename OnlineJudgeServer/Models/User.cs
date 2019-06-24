@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnlineJudgeServer.Models
@@ -12,6 +13,8 @@ namespace OnlineJudgeServer.Models
         public string Email { get; set; }
 
         public DateTime RegisterTime { get; set; }
+        
+        public ICollection<Submit> Submits { get; set; }
         
     }
 }
