@@ -28,10 +28,12 @@
 
                         var html = "<div class='card shadow-sm'>";
                         html += "<div class='card-body'>";
-                        html += "<a href='Problems/Detail?problemId="+term.problem.problemId+"'>" + term.problem.problemId + " . " + term.problem.title + "</a>";
-                        if (term) {
-                            html += "<ion-icon name='checkmark'></ion-icon>";
-                            
+                        html += "<a href='Problems/Detail?problemId="+term.problem.problemId+"'>" + "<font size='5'>"+term.problem.problemId + " . " + term.problem.title + "</font></a>";
+                        if (term.status==1) {
+                            html += "<ion-icon style='float:right' size='large' name='checkmark'></ion-icon>"; 
+                        }
+                        else if (html.status == 0) {
+                            html += "<ion-icon style='float:right' size='large' name='close'></ion-icon>"; 
                         }
                         html += "</div></div><br />";
                         $("#problemList").append(html);
