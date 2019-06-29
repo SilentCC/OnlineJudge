@@ -36,13 +36,13 @@ namespace OnlineJudgeServer.Controllers
             foreach (var sub in submit)
             {
                 var problem = await _context.Problems.FirstOrDefaultAsync(m => m.ProblemId == sub.ProblemId);
-                
+                var user = await _context.Users.FirstOrDefaultAsync(m => m.UserId == sub.UserId);
                 result.Add(new
                 {
                     id = sub.SubmitId,
                     title = problem.Title,
                     status = sub.JudgeResult,
-                    userName = "dacc",
+                    userName = user.UserName,
                     submitTime = sub.SubmitTime
                 });
             }

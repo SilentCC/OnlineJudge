@@ -42,7 +42,7 @@ namespace OnlineJudgeServer
                 options.AddPolicy("AllowAllOrigin", builder =>
                 {
                     builder.WithOrigins("https://localhost:5001", "http://localhost", "https://*.kanghekeji.cn",
-                            "http://*.kanghekeji.cn")
+                            "http://oj.kanghekeji.cn")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();
@@ -50,7 +50,7 @@ namespace OnlineJudgeServer
             });
 
 
-            var connection = @"Server=47.240.2.193;Database=onlineJudge;port=3306;user=root;password=dage123;Convert Zero Datetime=True;Allow Zero Datetime=True;";
+            var connection = @"Server=127.0.0.1;Database=onlineJudge;port=3306;user=root;password=dage123;Convert Zero Datetime=True;Allow Zero Datetime=True;";
             services.AddDbContext<OnlineJudgeContext>(options => options.UseMySql(connection,mysqlOptions =>
             {
                 mysqlOptions.ServerVersion(new Version(5, 7, 26), ServerType.MySql); 
