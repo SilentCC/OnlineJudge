@@ -32,9 +32,16 @@ namespace OnlineJudgeServer.Controllers
             var use = await  _context.Users.FirstOrDefaultAsync(
                 m => m.UserName == user.UserName && m.Password == user.Password);
 
+            int success;
+            if (use == null)
+                success = 0;
+            else
+            {
+                success = use.UserId;
+            }
             var res = new
             {
-                success = user?.UserId ?? 0
+                success
             };
             return Ok(res);
         }
