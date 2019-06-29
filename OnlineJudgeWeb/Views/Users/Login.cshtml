@@ -81,9 +81,10 @@
 
                 if (data.success == 0)
                     alert("用户名或者密码错误");
-                else
-                {
+                else {
+
                     setCookie("userName", userName,30);
+
                     setCookie("userId", data.success, 30);
                     window.location.href= "/";
                 }

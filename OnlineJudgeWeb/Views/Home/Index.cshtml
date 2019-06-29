@@ -14,9 +14,16 @@
 
     window.onload = function() {
 
+        var userId = getCookie("userId");
+
+        var url = "http://47.240.2.193:4399/api/Problems";
+        if (userId != "") {
+
+            url = "http://47.240.2.193:4399/api/Problems?userId=" + userId;
+        }
         $.ajax({
             type: 'get',
-            url: "http://47.240.2.193:4399/api/Problems",
+            url: url,
             xhrFields: {
                 withCredentials: true
             },
