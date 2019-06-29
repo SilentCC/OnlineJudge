@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnlineJudgeServer.Models;
+using OnlineJudgeServer.Services;
 
 namespace OnlineJudgeServer.Controllers
 {
@@ -27,20 +28,55 @@ namespace OnlineJudgeServer.Controllers
         {
             return View(await _context.Problems.ToListAsync());
         }
-        
+
         [HttpGet("api/Problems")]
-        public async Task<IActionResult> IndexApi()
+        public async Task<IActionResult> IndexApi(int userId)
         {
             var stopWatch = Stopwatch.StartNew();
-      
-            var result = await _context.Problems.ToListAsync();
-            
-            Console.WriteLine(stopWatch.ElapsedMilliseconds+"ms");
 
-            return Ok(result);
+            var result = await _context.Problems.ToListAsync();
+
+            var ans = new List<HomeProblem>();
+
+            foreach (var problem in result)
+            {
+                int isAc = -1;
+                if (userId != 0)
+                {
+                    var submits =
+                        await _context.Submits.Where(m =>
+                            m.UserId == userId && m.ProblemId == problem.ProblemId).ToListAsync();
+
+                    foreach (var submit in submits)
+                    {
+                        isAc = 0;
+                        if (submit.JudgeStatus == (int) JudgeStatus.Accept)
+                        {
+                            isAc = 1;
+                            break;
+                        }
+                    }
+                }
+
+                ans.Add(new HomeProblem
+                {
+                    Problem = problem,
+                    Status = isAc
+                });
+            }
+            
+            Console.WriteLine(stopWatch.ElapsedMilliseconds + "ms");
+
+            return Ok(ans);
         }
 
-         
+        public class HomeProblem
+        {
+            public Problem Problem;
+            public int Status;
+        }
+
+
         [HttpGet("api/Problems/Detail/{id}")]
         public async Task<IActionResult> DetailsApi(int? id)
         {
@@ -58,7 +94,7 @@ namespace OnlineJudgeServer.Controllers
 
             return Ok(problem);
         }
-        
+
         // GET: Problems/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -88,7 +124,9 @@ namespace OnlineJudgeServer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProblemId,Id,Title,Content,Note,ExampleInput,ExampleOutPut,PushlishId,PublishTime")] Problem problem)
+        public async Task<IActionResult> Create(
+            [Bind("ProblemId,Id,Title,Content,Note,ExampleInput,ExampleOutPut,PushlishId,PublishTime")]
+            Problem problem)
         {
             if (ModelState.IsValid)
             {
@@ -96,6 +134,7 @@ namespace OnlineJudgeServer.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(problem);
         }
 
@@ -112,6 +151,7 @@ namespace OnlineJudgeServer.Controllers
             {
                 return NotFound();
             }
+
             return View(problem);
         }
 
@@ -120,7 +160,9 @@ namespace OnlineJudgeServer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProblemId,Id,Title,Content,Note,ExampleInput,ExampleOutPut,PushlishId,PublishTime")] Problem problem)
+        public async Task<IActionResult> Edit(int id,
+            [Bind("ProblemId,Id,Title,Content,Note,ExampleInput,ExampleOutPut,PushlishId,PublishTime")]
+            Problem problem)
         {
             if (id != problem.Id)
             {
@@ -145,8 +187,10 @@ namespace OnlineJudgeServer.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(problem);
         }
 

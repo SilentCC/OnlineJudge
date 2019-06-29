@@ -28,7 +28,11 @@
 
                         var html = "<div class='card shadow-sm'>";
                         html += "<div class='card-body'>";
-                        html += "<a href='Problems/Detail?problemId="+term.problemId+"'>" + term.problemId + " . " + term.title + "</a>";
+                        html += "<a href='Problems/Detail?problemId="+term.problem.problemId+"'>" + term.problem.problemId + " . " + term.problem.title + "</a>";
+                        if (term) {
+                            html += "<ion-icon name='checkmark'></ion-icon>";
+                            
+                        }
                         html += "</div></div><br />";
                         $("#problemList").append(html);
                     });
