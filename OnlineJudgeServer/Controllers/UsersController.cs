@@ -34,7 +34,7 @@ namespace OnlineJudgeServer.Controllers
 
             var res = new
             {
-                success = (user == null ? 0 : 1)
+                success = user?.UserId ?? 0
             };
             return Ok(res);
         }
@@ -69,10 +69,11 @@ namespace OnlineJudgeServer.Controllers
             user.RegisterTime = DateTime.Now;
             _context.Add(user);
             await _context.SaveChangesAsync();
-            
+
+            var id = _context.Users.Last(m => m.UserName == user.UserName);
             var res = new
             {
-                success = 1
+                success = id
             };
             return Ok(res);
             
