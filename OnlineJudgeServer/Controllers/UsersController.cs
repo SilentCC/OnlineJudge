@@ -77,7 +77,10 @@ namespace OnlineJudgeServer.Controllers
             _context.Add(user);
             await _context.SaveChangesAsync();
 
-            var id = _context.Users.Last(m => m.UserName == user.UserName);
+            var u = await _context.Users.LastAsync(m => m.UserName == user.UserName);
+            var id = 0;
+            if (u != null)
+                id = u.UserId;
             var res = new
             {
                 success = id

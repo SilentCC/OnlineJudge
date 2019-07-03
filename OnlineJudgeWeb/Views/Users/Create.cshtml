@@ -62,7 +62,7 @@
             dataType: "json",
             success: function(data) {
 
-                if (data.success == 1) {
+                if (data.success != 0) {
                     setCookie("userName", userName,30);
                     setCookie("userId", data.success, 30);
                     window.location.href= "/";
