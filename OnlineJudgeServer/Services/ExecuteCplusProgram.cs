@@ -133,13 +133,13 @@ namespace OnlineJudgeServer.Services
                         break;
                     }
 
-                    var memory = process.VirtualMemorySize64;
+                    /*var memory = process.VirtualMemorySize64;
 
                     if (memory >= memoryLimit * 1024 * 1024)
                     {
                         status = JudgeStatus.MemoryLimitExceed;
                         break;
-                    }
+                    }*/
 
                     process.Close();
                 }
