@@ -7,12 +7,15 @@ namespace OnlineJudgeServer.Models
 {
     public class Problem
     {
-        public int ProblemId { get; set; }
-
         public int Id { get; set; }
+        public int ProblemId { get; set; }
         public string Title { get; set; }
 
         public string Content { get; set; }
+
+        public int MemoryLimit { get; set; }
+
+        public int TimeLimit { get; set;}
 
         public string Note { get; set; }
 

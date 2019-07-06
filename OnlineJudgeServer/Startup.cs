@@ -41,7 +41,7 @@ namespace OnlineJudgeServer
             {
                 options.AddPolicy("AllowAllOrigin", builder =>
                 {
-                    builder.WithOrigins("https://localhost:5001", "http://localhost", "https://*.kanghekeji.cn",
+                    builder.WithOrigins("https://localhost:5001", "http://localhost:5000", "https://oj.kanghekeji.cn",
                             "http://oj.kanghekeji.cn")
                         .AllowAnyHeader()
                         .AllowAnyMethod()

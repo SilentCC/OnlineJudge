@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Operations;
 using OnlineJudgeServer.Models;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
@@ -26,7 +27,7 @@ namespace OnlineJudgeServer.Services
             return result;
         }
 
-        public JudgeStatus Execute(Submit submit)
+        public JudgeStatus Execute(Submit submit, double memoryLimit, int timeLimit)
         {
             var inputData = GetData($"{submit.ProblemId}.input");
             var outputData = GetData($"{submit.ProblemId}.output");
@@ -53,39 +54,64 @@ namespace OnlineJudgeServer.Services
                 Console.WriteLine("编译成功");
             }
 
-            int i = 0;
-            foreach (var x in inputData)
+            
+            var status = JudgeStatus.Accept;
+            using (var process = new Process())
             {
-                using (var process = new Process())
-                {
-                    process.StartInfo.FileName = $"./{executeObj}";
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.RedirectStandardInput = true;
-                    process.StartInfo.RedirectStandardOutput = true;
-
+                process.StartInfo.FileName = $"./{executeObj}";
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.RedirectStandardInput = true;
+                process.StartInfo.RedirectStandardOutput = true;
+                
+                var output = "";
+                var input = "";
+                
+                var stopWatch = Stopwatch.StartNew();
+                for (int i = 0; i < inputData.Count; i++) 
+                {         
                     process.Start();
-                    StreamWriter streamWriter = process.StandardInput;
-                    StreamReader streamReader = process.StandardOutput;
+                    var streamWriter = process.StandardInput;
+                    var streamReader = process.StandardOutput;
+                    output = "";
+                    input = "";
 
-                    string output = "";
+                    var task = Task.Run(() =>
+                    {
+                        streamWriter.Write(inputData[i]);
+                        output = streamReader.ReadToEnd();
+                    });
 
-                    string input = "";
+                    var isCompletedSuccessfully = task.Wait(timeLimit);
 
-                    streamWriter.Write(x);
-                    output = streamReader.ReadToEnd();
+                    if (!isCompletedSuccessfully)
+                    {
+                        status = JudgeStatus.TimeLimitExceed;
+                        break;
+                    }
+                   
                     if (!output.Equals(outputData[i]))
                     {
-                        return JudgeStatus.WrongAnswer;
+                        status = JudgeStatus.WrongAnswer;
+                        break;
                     }
-                }
 
-                i++;
+                    var memory = process.PrivateMemorySize64;
+
+                    if (memory >= memoryLimit)
+                    {
+                        status = JudgeStatus.MemoryLimitExceed;
+                        break;
+                    }
+                           
+                    process.Close();
+                }
+                
             }
 
             File.Delete(file);
             File.Delete(executeObj);
 
-            return JudgeStatus.Accept;
+            return status;
         }
     }
 
@@ -96,6 +122,8 @@ namespace OnlineJudgeServer.Services
         Accept = 2,
         RuntimeError = 3,
         CompileError = 4,
-        PresentationError = 5
+        PresentationError = 5,
+        MemoryLimitExceed = 6,
+        TimeLimitExceed = 7
     }
 }

@@ -16,14 +16,14 @@
 
         var userId = getCookie("userId");
 
-        var url = "http://47.240.2.193:4399/api/Problems";
+        var urlProblems = url + "/api/Problems";
         if (userId != "") {
 
-            url = "http://47.240.2.193:4399/api/Problems?userId=" + userId;
+            urlProblems = url + "/api/Problems?userId=" + userId;
         }
         $.ajax({
             type: 'get',
-            url: url,
+            url: urlProblems,
             xhrFields: {
                 withCredentials: true
             },

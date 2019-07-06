@@ -24,10 +24,10 @@ namespace OnlineJudgeServer.Controllers
             _context = context;
         }
 
-        [HttpPost("submit")]
-        public async Task<IActionResult> Post([FromBody] Submit submit)
+        [HttpPost("submit/{memory}/{time}")]
+        public async Task<IActionResult> Post([FromBody] Submit submit,int memory,int time)
         {
-            var res = _executeCplusProgram.Execute(submit);
+            var res = _executeCplusProgram.Execute(submit,memory,time);
 
             submit.JudgeStatus = (int) res;
             submit.JudgeResult = res.ToString();

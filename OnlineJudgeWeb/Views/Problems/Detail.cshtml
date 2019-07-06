@@ -1,16 +1,18 @@
-﻿<h1 class="display-4" id="title"></h1>
+﻿<h1 class="display-4" style="display: inline-block" id="title"></h1> &nbsp;&nbsp;&nbsp;&nbsp;
+内存限制：<h6 class="display-8 font-weight-normal" style="display: inline-block" id="memory"></h6> kb &nbsp;&nbsp;&nbsp;&nbsp;
+时间限制：<h6 class="display-8 font-weight-normal" style="display: inline-block" id="time"></h6> ms
 <br/>
 
-<div class="card w-75 shadow-lg">
-    <div class="card-body" style="margin:15px">
+<div class="card w-105 shadow-lg">
+    <div class="card-body" style="margin: 15px">
         <h6 class="card-title">题目描述：</h6>
-        <p class="card-text" style="white-space:pre" id="content"></p>
+        <p class="card-text font-weight-light" style="white-space: pre" id="content"></p>
         <br/>
         <h6 class="card-title">样例输入：</h6>
-        <p class="card-text" id="exampleInput"></p>
+        <p class="card-text font-weight-light" style="white-space: pre" id="exampleInput"></p>
         <br/>
         <h6 class="card-title">样例输出：</h6>
-        <p class="card-text" id="exampleOutPut"></p>
+        <p class="card-text font-weight-light" style="white-space: pre" id="exampleOutPut"></p>
     </div>
 </div>
 
@@ -19,8 +21,8 @@
 
 <div class="card w-105 shadow-lg">
     <br/>
-   
-    <div class="form-group" style="margin:15px">
+
+    <div class="form-group" style="margin: 15px">
         <div class="col-sm-2">
             <label class="display-5">选择编译器</label>
         </div>
@@ -58,13 +60,14 @@
 <script type="text/javascript">
 
     var id;
+
     window.onload = function() {
 
         id = getQueryVariable("problemId");
 
         $.ajax({
             type: 'get',
-            url: "http://47.240.2.193:4399/api/Problems/Detail/" + id,
+            url: url + "/api/Problems/Detail/" + id,
             xhrFields: {
                 withCredentials: true
             },
@@ -72,6 +75,8 @@
             success: function(data) {
 
                 $("#title").html(data.title);
+                $("#memory").html(data.memoryLimit);
+                $("#time").html(data.timeLimit);
                 $("#content").html(data.content);
                 $("#exampleInput").html(data.exampleInput);
                 $("#exampleOutPut").html(data.exampleOutPut);
@@ -113,9 +118,12 @@
             SourceCode: code
         };
 
+        var memory = $("#memory").html();
+        var time = $("#time").html();
+
         $.ajax({
             type: "post",
-            url: "http://47.240.2.193:4399/api/Judge/submit",
+            url: url + "/api/Judge/submit/" + memory + "/" + time,
             contentType: "application/json; charset=utf-8",
             xhrFields: {
                 withCredentials: true

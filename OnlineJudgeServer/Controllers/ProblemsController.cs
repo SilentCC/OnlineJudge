@@ -125,7 +125,7 @@ namespace OnlineJudgeServer.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            [Bind("ProblemId,Id,Title,Content,Note,ExampleInput,ExampleOutPut,PushlishId,PublishTime")]
+            [Bind("ProblemId,Id,Title,MemoryLimit,TimeLimit,Content,Note,ExampleInput,ExampleOutPut,PushlishId,PublishTime")]
             Problem problem)
         {
             if (ModelState.IsValid)
@@ -161,7 +161,7 @@ namespace OnlineJudgeServer.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id,
-            [Bind("ProblemId,Id,Title,Content,Note,ExampleInput,ExampleOutPut,PushlishId,PublishTime")]
+            [Bind("ProblemId,Id,Title,MemoryLimit,TimeLimit,Content,Note,ExampleInput,ExampleOutPut,PushlishId,PublishTime")]
             Problem problem)
         {
             if (id != problem.Id)
