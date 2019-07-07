@@ -17,6 +17,10 @@ namespace OnlineJudgeServer.Models
 
         public int TimeLimit { get; set;}
 
+        public int TotalSubmit { get; set; }
+
+        public int AcceptSubmit { get; set; }
+
         public string Note { get; set; }
 
         public string ExampleInput { get; set; }

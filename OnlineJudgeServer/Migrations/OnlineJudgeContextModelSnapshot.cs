@@ -22,6 +22,8 @@ namespace OnlineJudgeServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("AcceptSubmit");
+
                     b.Property<string>("Content");
 
                     b.Property<string>("ExampleInput");
@@ -41,6 +43,8 @@ namespace OnlineJudgeServer.Migrations
                     b.Property<int>("TimeLimit");
 
                     b.Property<string>("Title");
+
+                    b.Property<int>("TotalSubmit");
 
                     b.HasKey("Id");
 

@@ -36,6 +36,9 @@
                         var html = "<div class='card shadow-sm'>";
                         html += "<div class='card-body'>";
                         html += "<a href='Problems/Detail?problemId="+term.problem.problemId+"'>" + "<font size='5'>"+term.problem.problemId + " . " + term.problem.title + "</font></a>";
+                        
+                        html += "&nbsp;&nbsp;&nbsp;<small class='font-weight-light'>"+term.problem.acceptSubmit+" / "+term.problem.totalSubmit+"</small>"
+                        
                         if (term.status==1) {
                             html += "<ion-icon style='float:right' size='large' name='checkmark'></ion-icon>"; 
                         }

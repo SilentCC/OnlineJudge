@@ -9,8 +9,8 @@ using OnlineJudgeServer.Models;
 namespace OnlineJudgeServer.Migrations
 {
     [DbContext(typeof(OnlineJudgeContext))]
-    [Migration("20190706064143_update_problem1")]
-    partial class update_problem1
+    [Migration("20190707012440_updateProblem2")]
+    partial class updateProblem2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,8 @@ namespace OnlineJudgeServer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AcceptSubmit");
 
                     b.Property<string>("Content");
 
@@ -43,6 +45,8 @@ namespace OnlineJudgeServer.Migrations
                     b.Property<int>("TimeLimit");
 
                     b.Property<string>("Title");
+
+                    b.Property<int>("TotalSubmit");
 
                     b.HasKey("Id");
 
