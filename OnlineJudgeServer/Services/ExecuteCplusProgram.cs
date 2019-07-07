@@ -79,17 +79,24 @@ namespace OnlineJudgeServer.Services
                 writer.Flush();
             }
 
-            var compileStr = $"g++ {file} -o {executeObj}";
+            try
+            {
+                var compileStr = $"g++ {file} -o {executeObj}";
 
-            compileStr.Bash();
+                compileStr.Bash();
 
-            if (!File.Exists(executeObj))
+                if (!File.Exists(executeObj))
+                {
+                    return JudgeStatus.CompileError;
+                }
+                else
+                {
+                    Console.WriteLine("编译成功");
+                }
+            }
+            catch (Exception e)
             {
                 return JudgeStatus.CompileError;
-            }
-            else
-            {
-                Console.WriteLine("编译成功");
             }
 
 

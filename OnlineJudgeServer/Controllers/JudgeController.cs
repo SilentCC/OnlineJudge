@@ -33,7 +33,7 @@ namespace OnlineJudgeServer.Controllers
             submit.JudgeResult = res.ToString();
             submit.SubmitTime = DateTime.Now;
 
-            var problem = await _context.Problems.FirstOrDefaultAsync(m => m.ProblemId == submit.UserId);
+            var problem = await _context.Problems.FirstOrDefaultAsync(m => m.ProblemId == submit.ProblemId);
             if (res == JudgeStatus.Accept)
             {
                 problem.AcceptSubmit++;
