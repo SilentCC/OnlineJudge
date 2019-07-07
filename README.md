@@ -1,4 +1,4 @@
 # OnlineJudge
 在线刷题
 
-http://oj.kanghekji.cn
+http://oj.kanghekeji.cn
