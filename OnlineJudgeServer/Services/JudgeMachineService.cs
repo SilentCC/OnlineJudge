@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Operations;
 using OnlineJudgeServer.Models;
@@ -47,26 +48,43 @@ namespace OnlineJudgeServer.Services
                 for (int i = 0; i < inputData.Count; i++)
                 {
                     process.Start();
+                    Console.WriteLine(process.StartTime);
                     var streamWriter = process.StandardInput;
                     var streamReader = process.StandardOutput;
                     output = "康";
                     input = "";
 
-                    var task = Task.Run(async () =>
+                    
+                    //var task = Task.Run(async () =>
+                    
+                    //{
+                        streamWriter.Write(inputData[i]);
+                       
+                  
+                         output =  streamReader.ReadToEnd();
+                          
+                            process.WaitForExit( );
+                            
+                            Console.WriteLine(process.ExitTime);
+                            
+                        
+
+                       // Thread.Sleep(100000);
+                       
+                    //});
+
+                   // var isCompletedSuccessfully = task.Wait(timeLimit*5);
+
+                    if (process.ExitCode == 0)
                     {
-                        await streamWriter.WriteAsync(inputData[i]);
-                        output = await streamReader.ReadToEndAsync();
+                        
+                    }
 
-                        //process.WaitForExit();
-                    });
-
-                    var isCompletedSuccessfully = task.Wait(timeLimit);
-
-                    if (!isCompletedSuccessfully || (i != 0 && output == ""))
+                    /*if (!isCompletedSuccessfully || (i != 0 && output == ""))
                     {
                         status = JudgeStatus.TimeLimitExceed;
                         break;
-                    }
+                    }*/
 
                     if (!JudgeData(output, outputData[i], judgeMode))
                     {

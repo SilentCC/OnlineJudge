@@ -54,12 +54,7 @@
 
 <h1 class="display-4" style="display: inline-block" id="title"></h1> &nbsp;&nbsp;&nbsp;&nbsp;
 内存限制：<h6 class="display-8 font-weight-normal" style="display: inline-block" id="memory"></h6> kb &nbsp;&nbsp;&nbsp;&nbsp;
-时间限制：<h6 class="display-8 fo<style>
-      .CodeMirror {
-        border: 1px solid #eee;
-        height: auto;
-      }
-    </style>nt-weight-normal" style="display: inline-block" id="time"></h6> ms
+时间限制：<h6 class="display-8 font-weight-normal" style="display: inline-block" id="time"></h6> ms
 <br/>
 
 <div class="card w-105 shadow-lg">
@@ -100,14 +95,7 @@
         </div>
         <br/>
         <div class="col-sm-10">
-            <textarea class="form-control" rows="20" id="sourceCode">
-          
-          
-          
-          
-          
-          
-            </textarea>
+            <textarea class="form-control" rows="20" id="sourceCode"></textarea>
         </div>
         <br/>
         <div class="col-sm-3">
@@ -166,6 +154,8 @@
         //智能提示 
         extraKeys:{"Ctrl-Space":"autocomplete"}//ctrl-space唤起智能提示
     });
+
+    editor.setSize("100%", "100%");
     
     $("#codeType").change(function(){
         var opt=$("#codeType").val();
@@ -248,7 +238,7 @@
         else
             codeSuffix = "py";
 
-        var code = $("#sourceCode").val();
+        var code = editor.getValue();
         
         var data = {
             ProblemId: id,

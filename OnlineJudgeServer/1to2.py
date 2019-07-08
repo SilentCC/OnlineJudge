@@ -3,6 +3,7 @@ n=int(n)
 m=int(m)
 list1 = []
 list1 = input().split()
+list3 = []
 i = 0
 list1.sort()
 for i in range(0,n):
@@ -34,6 +35,16 @@ while True:
     i=result[0]+1
     j=result[1]-1
     list4=result[2]
-    print(list4)
+    list3.append(list4)
     if i>=j:
         break
+    
+k=len(list3)
+print(k)
+for i in range(0,k):
+    print(str(list3[i][0][0])+' '+str(list3[i][0][1]))     
+          
+          
+          
+          
+            
