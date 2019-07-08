@@ -21,9 +21,8 @@ namespace OnlineJudgeServer.Services
             };
 
             process.Start();
-            string result = process.StandardOutput.ReadToEnd();
+            string result = process.StandardOutput.ReadLine();
             process.WaitForExit();
-
             return result;
         }
     }

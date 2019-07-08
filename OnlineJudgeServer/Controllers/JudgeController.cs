@@ -16,18 +16,30 @@ namespace OnlineJudgeServer.Controllers
     public class JudgeController : Controller
     {
         private readonly ExecuteCplusProgram _executeCplusProgram;
+        private readonly ExecutePythonProgram _executePythonProgram;
         private readonly OnlineJudgeContext _context;
 
-        public JudgeController(ExecuteCplusProgram executeCplusProgram, OnlineJudgeContext context)
+        public JudgeController(ExecuteCplusProgram executeCplusProgram, ExecutePythonProgram executePythonProgram,
+            OnlineJudgeContext context)
         {
             _executeCplusProgram = executeCplusProgram;
+            _executePythonProgram = executePythonProgram;
             _context = context;
         }
 
         [HttpPost("submit/{memory}/{time}")]
-        public async Task<IActionResult> Post([FromBody] Submit submit,int memory,int time)
+        public async Task<IActionResult> Post([FromBody] Submit submit, int memory, int time)
         {
-            var res = _executeCplusProgram.Execute(submit,memory,time);
+            JudgeMachineService judgeMachineService;
+            
+            if(submit.CodeType == (int)CodeType.gcc || submit.CodeType==(int)CodeType.gplus)
+                judgeMachineService = new JudgeMachineService(_executeCplusProgram);
+            else
+            {
+                judgeMachineService = new JudgeMachineService(_executePythonProgram);
+            }
+
+            var res = judgeMachineService.Judge(submit, memory, time);
 
             submit.JudgeStatus = (int) res;
             submit.JudgeResult = res.ToString();
@@ -42,11 +54,11 @@ namespace OnlineJudgeServer.Controllers
             problem.TotalSubmit++;
 
             _context.Update(problem);
-            
+
             _context.Add(submit);
             await _context.SaveChangesAsync();
 
-            var result = await 
+            var result = await
                 _context.Submits.LastOrDefaultAsync(m => m.UserId == submit.UserId && m.ProblemId == submit.ProblemId);
 
             return Ok(result);

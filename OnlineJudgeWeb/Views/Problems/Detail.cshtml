@@ -27,12 +27,15 @@
             <label class="display-5">选择编译器</label>
         </div>
         <div class="col-sm-4">
-            <select class="form-control">
-                <option>
+            <select id="codeType" class="form-control">
+                <option value="0">
                     gcc
                 </option>
-                <option>
+                <option value="1">
                     g++
+                </option>
+                <option value="2">
+                    python
                 </option>
             </select>
         </div>
@@ -108,18 +111,27 @@
         html += preHtml;
 
         $("#result").html(html);
+        
+        var codeType = $("#codeType").val();
+        var codeSuffix = "";
+        if (codeType == 0 || codeType == 1)
+            codeSuffix = "cpp";
+        else
+            codeSuffix = "py";
 
         var code = $("#sourceCode").val();
+        
         var data = {
             ProblemId: id,
             UserId: userId,
-            CodeType: 1,
-            CodeSuffix: "cpp",
+            CodeType: codeType,
+            CodeSuffix: codeSuffix,
             SourceCode: code
         };
 
         var memory = $("#memory").html();
         var time = $("#time").html();
+        
 
         $.ajax({
             type: "post",
