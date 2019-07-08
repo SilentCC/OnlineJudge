@@ -1,6 +1,65 @@
-﻿<h1 class="display-4" style="display: inline-block" id="title"></h1> &nbsp;&nbsp;&nbsp;&nbsp;
+﻿<link rel="stylesheet" href="~/js/codemirror-5.48.0/lib/codemirror.css">
+<script src="~/js/codemirror-5.48.0/lib/codemirror.js"></script>
+<script src="~/js/codemirror-5.48.0/mode/clike/clike.js"></script>
+<script src="~/js/codemirror-5.48.0/mode/python/python.js"></script>
+
+
+<!--引入css文件，用以支持主题-->
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/seti.css">
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/eclipse.css">
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/dracula.css">
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/idea.css">
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/xq-light.css">
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/addon/dialog/dialog.css">
+
+
+<script src="~/js/codemirror-5.48.0/keymap/vim.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/search/searchcursor.js"></script>
+<!--改善vim输入命令时的样式-->
+<script src="~/js/codemirror-5.48.0/addon/dialog/dialog.js"></script>
+
+<script src="~/js/codemirror-5.48.0/addon/mode/multiplex.js"></script>
+
+
+<!--支持代码折叠-->
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/addon/fold/foldgutter.css"/>
+<script src="~/js/codemirror-5.48.0/addon/fold/foldcode.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/fold/foldgutter.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/fold/brace-fold.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/fold/comment-fold.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/fold/xml-fold.js"></script>
+
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/addon/display/fullscreen.css">
+<script src="~/js/codemirror-5.48.0/addon/display/fullscreen.js"></script>
+
+<!--支持自动补全括号和标记-->
+<script src="~/js/codemirror-5.48.0/addon/edit/matchbrackets.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/edit/closebrackets.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/edit/trailingspace.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/edit/matchtags.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/edit/closetag.js"></script>
+
+<script src="~/js/codemirror-5.48.0/addon/hint/show-hint.js"></script>
+<!--自动补全-->
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/addon/hint/show-hint.css">
+<script src="~/js/codemirror-5.48.0/addon/hint/show-hint.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/hint/anyword-hint.js"></script>
+
+<style>
+    .CodeMirror {
+        border: 1px solid #eee;
+        height: auto;
+    }
+</style>
+
+<h1 class="display-4" style="display: inline-block" id="title"></h1> &nbsp;&nbsp;&nbsp;&nbsp;
 内存限制：<h6 class="display-8 font-weight-normal" style="display: inline-block" id="memory"></h6> kb &nbsp;&nbsp;&nbsp;&nbsp;
-时间限制：<h6 class="display-8 font-weight-normal" style="display: inline-block" id="time"></h6> ms
+时间限制：<h6 class="display-8 fo<style>
+      .CodeMirror {
+        border: 1px solid #eee;
+        height: auto;
+      }
+    </style>nt-weight-normal" style="display: inline-block" id="time"></h6> ms
 <br/>
 
 <div class="card w-105 shadow-lg">
@@ -41,7 +100,14 @@
         </div>
         <br/>
         <div class="col-sm-10">
-            <textarea class="form-control" rows="20" id="sourceCode"></textarea>
+            <textarea class="form-control" rows="20" id="sourceCode">
+          
+          
+          
+          
+          
+          
+            </textarea>
         </div>
         <br/>
         <div class="col-sm-3">
@@ -59,13 +125,76 @@
 
 </div>
 
+<script type="text/javascript">
+
+    var editor = CodeMirror.fromTextArea(document.getElementById("sourceCode"), {
+        //Java高亮显示
+        //mode:"text/x-java",
+        mode: "text/x-c++src",
+        //mode: "text/x-python",
+        //mode: "text/x-cython",
+        //显示行号
+        lineNumbers: true,
+
+        //设置主题
+        theme: "idea",
+
+        //绑定Vim
+        // keyMap:"vim",
+
+        //代码折叠
+        lineWrapping: true,
+        foldGutter: true,
+        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+
+        //全屏模式
+        fullScreen: false,
+
+        //括号匹配
+        matchBrackets: true,
+        
+        matchTags: true,
+
+        autoCloseBrackets: true,
+        
+        autoCloseTags:true,
+        
+        showTrailingSpace:true,
+        
+        //showHint:true,
+
+        //智能提示 
+        extraKeys:{"Ctrl-Space":"autocomplete"}//ctrl-space唤起智能提示
+    });
+    
+    $("#codeType").change(function(){
+        var opt=$("#codeType").val();
+        
+        if (opt == 0 || opt == 1) {
+            
+            update("text/x-c++src");
+            
+        }
+        else if (opt == 2) {
+            
+            update("text/x-python");
+        }
+    });
+    
+    function update(mode) {
+        editor.setOption("mode",mode);
+    }
+   
+</script>
+
+
 
 <script type="text/javascript">
 
     var id;
 
     window.onload = function() {
-
+        
         id = getQueryVariable("problemId");
 
         $.ajax({
@@ -177,3 +306,7 @@
     }
 
 </script>
+
+
+
+
