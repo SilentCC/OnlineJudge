@@ -60,7 +60,15 @@ namespace OnlineJudgeServer.Services
                     output = "康";
                     input = "";
 
-                    streamWriter.Write(inputData[i]);
+                    try
+                    {
+                        streamWriter.Write(inputData[i]);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("输入数据格式不对");
+                        return JudgeStatus.WrongAnswer;
+                    }
 
                     stopWatch.Restart();
                     var task = streamReader.ReadToEndAsync();
