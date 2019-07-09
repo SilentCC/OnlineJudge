@@ -149,13 +149,15 @@
         
         showTrailingSpace:true,
         
+        showCursorWhenSelecting:true,
+        
         //showHint:true,
 
         //智能提示 
         extraKeys:{"Ctrl-Space":"autocomplete"}//ctrl-space唤起智能提示
     });
 
-    editor.setSize("100%", "100%");
+    editor.setSize("100%", "500");
     
     $("#codeType").change(function(){
         var opt=$("#codeType").val();

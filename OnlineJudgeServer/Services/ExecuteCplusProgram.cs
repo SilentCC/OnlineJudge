@@ -64,6 +64,7 @@ namespace OnlineJudgeServer.Services
             processInfo.UseShellExecute = false;
             processInfo.RedirectStandardInput = true;
             processInfo.RedirectStandardOutput = true;
+            processInfo.RedirectStandardError = true;
 
             return processInfo;
         }

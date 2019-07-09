@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using OnlineJudgeServer.Models;
+using Remotion.Linq.Utilities;
 
 namespace OnlineJudgeServer.Services
 {
@@ -44,6 +45,7 @@ namespace OnlineJudgeServer.Services
             processInfo.UseShellExecute = false;
             processInfo.RedirectStandardInput = true;
             processInfo.RedirectStandardOutput = true;
+            processInfo.RedirectStandardError = true;
 
             processInfo.Arguments = $"{file}";
 

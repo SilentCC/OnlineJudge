@@ -42,9 +42,4 @@ while True:
 k=len(list3)
 print(k)
 for i in range(0,k):
-    print(str(list3[i][0][0])+' '+str(list3[i][0][1]))     
-          
-          
-          
-          
-            
+    print(str(list3[i][0][0])+' '+str(list3[i][0][1]))

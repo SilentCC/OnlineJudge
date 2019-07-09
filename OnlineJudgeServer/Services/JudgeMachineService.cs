@@ -20,7 +20,7 @@ namespace OnlineJudgeServer.Services
         {
             _executeProgram = executeProgram;
         }
-        
+
         public JudgeStatus Judge(Submit submit, double memoryLimit, int timeLimit)
         {
             var inputData = GetData($"{submit.ProblemId}.input");
@@ -38,53 +38,48 @@ namespace OnlineJudgeServer.Services
             var status = JudgeStatus.Accept;
             using (var process = new Process())
             {
-
                 process.StartInfo = _executeProgram.GetProcessStartInfo(executeObj);
 
                 var output = "";
                 var input = "";
-
+                var error = "";
+                long time = 0;
                 var stopWatch = Stopwatch.StartNew();
                 for (int i = 0; i < inputData.Count; i++)
                 {
                     process.Start();
-                    Console.WriteLine(process.StartTime);
                     var streamWriter = process.StandardInput;
                     var streamReader = process.StandardOutput;
+                    var errorReader = process.StandardError;
                     output = "康";
                     input = "";
 
+                    stopWatch.Restart();
+                    streamWriter.Write(inputData[i]);
                     
-                    //var task = Task.Run(async () =>
-                    
-                    //{
-                        streamWriter.Write(inputData[i]);
-                       
-                  
-                         output =  streamReader.ReadToEnd();
-                          
-                            process.WaitForExit( );
-                            
-                            Console.WriteLine(process.ExitTime);
-                            
-                        
+                    error = errorReader.ReadToEnd();
 
-                       // Thread.Sleep(100000);
-                       
-                    //});
-
-                   // var isCompletedSuccessfully = task.Wait(timeLimit*5);
-
-                    if (process.ExitCode == 0)
+                    if (error != "")
                     {
-                        
+                        return JudgeStatus.RuntimeError;
                     }
+                    output = streamReader.ReadToEnd();
 
-                    /*if (!isCompletedSuccessfully || (i != 0 && output == ""))
+                    time = stopWatch.ElapsedMilliseconds;
+
+                    if (time > timeLimit)
                     {
-                        status = JudgeStatus.TimeLimitExceed;
-                        break;
-                    }*/
+                        return JudgeStatus.TimeLimitExceed;
+                    }
+                    
+                    Console.WriteLine($"程序执行的时间为{time}ms");
+
+                    process.WaitForExit();
+
+                    if (process.ExitCode != 0)
+                    {
+                        return JudgeStatus.RuntimeError;
+                    }
 
                     if (!JudgeData(output, outputData[i], judgeMode))
                     {
