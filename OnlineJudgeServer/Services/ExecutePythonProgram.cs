@@ -17,7 +17,7 @@ namespace OnlineJudgeServer.Services
                 writer.Flush();
             }
 
-            var compileStr = $"python -m py_compile {file}";
+            var compileStr = $"python3 -m py_compile {file}";
 
             var str = compileStr.Bash();
 
