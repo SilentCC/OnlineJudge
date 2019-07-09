@@ -37,7 +37,7 @@ namespace OnlineJudgeServer.Controllers
             else
             {
                 judgeMachineService = new JudgeMachineService(_executePythonProgram);
-                time = time * 10;
+                time = time * 20;
             }
 
             var res = await judgeMachineService.Judge(submit, memory, time);
