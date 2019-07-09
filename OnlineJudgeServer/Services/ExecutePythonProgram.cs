@@ -21,12 +21,12 @@ namespace OnlineJudgeServer.Services
 
             var str = compileStr.Bash();
 
-            if (!File.Exists($"{submit.UserId}to{submit.ProblemId}.pyc"))
+            /*if (!File.Exists($"{submit.UserId}to{submit.ProblemId}.pyc"))
             {
                 return JudgeStatus.CompileError.ToString();
-            }
-            
-            File.Delete($"{submit.UserId}to{submit.ProblemId}.pyc");
+            }*/
+            if (File.Exists($"{submit.UserId}to{submit.ProblemId}.pyc"))
+                File.Delete($"{submit.UserId}to{submit.ProblemId}.pyc");
 
             if (str == null)
                 return file;
@@ -35,6 +35,7 @@ namespace OnlineJudgeServer.Services
             {
                 return JudgeStatus.CompileError.ToString();
             }
+
             return file;
         }
 
