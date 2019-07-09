@@ -53,7 +53,7 @@ namespace OnlineJudgeServer.Services
                 for (int i = 0; i < inputData.Count; i++)
                 {
                     process.Start();
-                    process.BeginErrorReadLine();
+                    //process.BeginErrorReadLine();
                     var streamWriter = process.StandardInput;
                     var streamReader = process.StandardOutput;
  
@@ -102,7 +102,7 @@ namespace OnlineJudgeServer.Services
                         break;
                     }*/
 
-                    //process.Close();
+                    process.Close();
                 }
             }
 
