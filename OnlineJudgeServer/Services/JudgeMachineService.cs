@@ -102,7 +102,7 @@ namespace OnlineJudgeServer.Services
                         break;
                     }*/
 
-                    process.Close();
+                    //process.Close();
                 }
             }
 
