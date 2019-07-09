@@ -16,12 +16,16 @@ namespace OnlineJudgeServer.Services
     {
         private readonly IExecuteProgram _executeProgram;
 
+        private static  string _errorData = "";
+
+        private static string _outputData = "";
+
         public JudgeMachineService(IExecuteProgram executeProgram)
         {
             _executeProgram = executeProgram;
         }
 
-        public JudgeStatus Judge(Submit submit, double memoryLimit, int timeLimit)
+        public async Task<JudgeStatus> Judge(Submit submit, double memoryLimit, int timeLimit)
         {
             var inputData = GetData($"{submit.ProblemId}.input");
             var outputData = GetData($"{submit.ProblemId}.output");
@@ -39,6 +43,7 @@ namespace OnlineJudgeServer.Services
             using (var process = new Process())
             {
                 process.StartInfo = _executeProgram.GetProcessStartInfo(executeObj);
+                process.ErrorDataReceived += new DataReceivedEventHandler(ErrorDataHandler);
 
                 var output = "";
                 var input = "";
@@ -48,31 +53,33 @@ namespace OnlineJudgeServer.Services
                 for (int i = 0; i < inputData.Count; i++)
                 {
                     process.Start();
+                    process.BeginErrorReadLine();
                     var streamWriter = process.StandardInput;
                     var streamReader = process.StandardOutput;
-                    var errorReader = process.StandardError;
+ 
                     output = "康";
                     input = "";
 
-                    stopWatch.Restart();
                     streamWriter.Write(inputData[i]);
-                    
-                    error = errorReader.ReadToEnd();
 
-                    if (error != "")
-                    {
-                        return JudgeStatus.RuntimeError;
-                    }
-                    output = streamReader.ReadToEnd();
-
+                    stopWatch.Restart();
+                    var task = streamReader.ReadToEndAsync();
+                    var isComplete = task.Wait(timeLimit);
+                   
                     time = stopWatch.ElapsedMilliseconds;
+                    Console.WriteLine($"程序执行的时间为{time}ms");
 
-                    if (time > timeLimit)
+                    if (!isComplete)
                     {
                         return JudgeStatus.TimeLimitExceed;
                     }
-                    
-                    Console.WriteLine($"程序执行的时间为{time}ms");
+
+                    output = task.Result;
+
+                    if (_errorData != "")
+                    {
+                        return JudgeStatus.RuntimeError;
+                    }
 
                     process.WaitForExit();
 
@@ -102,6 +109,21 @@ namespace OnlineJudgeServer.Services
             File.Delete(executeObj);
 
             return status;
+        }
+
+        private static void ErrorDataHandler(object sendingProcess,
+            DataReceivedEventArgs errLine)
+        {
+            if (!String.IsNullOrEmpty(errLine.Data))
+            {
+                _errorData = errLine.Data;
+            }
+        }
+        
+        private static void OutPutDataHandler(object sendingProcess,
+            DataReceivedEventArgs outLine)
+        {
+            _outputData += outLine;
         }
 
         public bool JudgeData(string a, string b, JudgeDataMode mode)

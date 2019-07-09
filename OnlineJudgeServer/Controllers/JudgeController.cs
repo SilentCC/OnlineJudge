@@ -40,7 +40,7 @@ namespace OnlineJudgeServer.Controllers
                 time = time * 10;
             }
 
-            var res = judgeMachineService.Judge(submit, memory, time);
+            var res = await judgeMachineService.Judge(submit, memory, time);
 
             submit.JudgeStatus = (int) res;
             submit.JudgeResult = res.ToString();
