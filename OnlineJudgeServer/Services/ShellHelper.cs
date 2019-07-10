@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace OnlineJudgeServer.Services
@@ -15,13 +16,14 @@ namespace OnlineJudgeServer.Services
                     FileName = "/bin/bash",
                     Arguments = $"-c \"{escapedArgs}\"",
                     RedirectStandardOutput = true,
+                    RedirectStandardError = true,
                     UseShellExecute = false,
                     CreateNoWindow = true,
                 }
             };
 
             process.Start();
-            string result = process.StandardOutput.ReadLine();
+            string result = process.StandardError.ReadToEnd();
             process.WaitForExit();
             return result;
         }
