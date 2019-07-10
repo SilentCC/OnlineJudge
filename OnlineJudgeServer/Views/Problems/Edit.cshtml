@@ -25,6 +25,22 @@
             </div>
             
             <div class="form-group">
+                <label asp-for="AcceptSubmit" class="control-label"></label>
+                <input asp-for="AcceptSubmit" class="form-control" />
+                <span asp-validation-for="AcceptSubmit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalSubmit" class="control-label"></label>
+                <input asp-for="TotalSubmit" class="form-control" />
+                <span asp-validation-for="TotalSubmit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemoryLimit" class="control-label"></label>
+                <input asp-for="MemoryLimit" class="form-control" />
+                <span asp-validation-for="MemoryLimit" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
                 <label asp-for="MemoryLimit" class="control-label"></label>
                 <input asp-for="MemoryLimit" class="form-control" />
                 <span asp-validation-for="MemoryLimit" class="text-danger"></span>
