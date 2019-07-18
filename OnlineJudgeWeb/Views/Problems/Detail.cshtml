@@ -232,19 +232,20 @@
                 console.log(data);
             }
         });
+       
         userId = getCookie("userId");
         var str = "using System;\n";
-        str += "using System.Collections.Generic;\n";
+        str += "using System.Collections.Generic;\n\n";
         str += "namespace MyProgam;\n";
         str += "{\n";
-        str += "   class Program\n";
-        str += "   {\n";
-        str += "       static void Main()\n";
-        str += "       {\n";
-        str += "           string line = Console.ReadLine();\n";
-        str += "           onsole.WriteLine(a+b);\n";
-        str += "       }\n";
-        str += "   }\n";
+        str += "  class Program\n";
+        str += "  {\n";
+        str += "    static void Main()\n";
+        str += "    {\n";
+        str += "      string line = Console.ReadLine();\n";
+        str += "      Console.WriteLine(a+b);\n";
+        str += "    }\n";
+        str += "  }\n";
         str += "}\n";
 
         if (localStorage.getItem(userId + "-" + id + "-csharp") === null) {
@@ -258,7 +259,7 @@
         str2 += "using namespace std;\n";
         str2 += "int main()\n";
         str2 += "{\n";
-        str2 += "   return 0;\n";
+        str2 += "  return 0;\n";
         str2 += "}\n";
         if (localStorage.getItem(userId + "-" + id + "-gcc") === null) {
 
