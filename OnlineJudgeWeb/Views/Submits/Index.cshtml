@@ -54,8 +54,8 @@
                         }
                     }
                 
-                html += "<li class='page-item' id='next' >";
-                html += "<a class='page-link' onclick=funNext()>Next</a>";
+                html += "<li class='page-item' id='next' onclick=funNext() >";
+                html += "<span class='page-link >Next</span>";
                 html += "</li>";
 
                 $("#pages").append(html);
@@ -67,11 +67,11 @@
     }
     function funNext() {
 
-        fun(pageIndex + 1, size);
+        fun(pageIndex + 1, pageSize);
     }
     
     function funPre() {
-        fun(pageIndex - 1, size);
+        fun(pageIndex - 1, pageSize);
     }
     
     function fun(index,size) {
@@ -89,7 +89,7 @@
             },
             crossDomain: true,
             success: function(data) {
-
+                $("#submitList").empty();
                 $.each(data,
                     function(i, term) {
 
@@ -102,7 +102,7 @@
                         html += "<a style='float:left'>"+"         "+term.id+".         "+term.title+"</a>"
                         html += "<a style='float:right'>" + term.userName + "         " + term.status + "          </a>";
                         html += "</div>";
-                        $("#submitList").empty();
+                       
                         $("#submitList").append(html);
                     });
                 
