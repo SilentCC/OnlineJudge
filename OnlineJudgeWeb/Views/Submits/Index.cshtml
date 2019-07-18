@@ -32,8 +32,8 @@
             success: function(data) {
 
                 totalNum = data;
-                var html="<li class='page-item disabled' id='pre'  href='javascript:void(0)' onclick=funPre()>";
-                html += "<a class='page-link' href=''>Previous</a>";
+                var html="<li class='page-item disabled' id='pre'  onclick=funPre()>";
+                html += "<a class='page-link'  href='javascript:void(0)'>Previous</a>";
                 html += "</li>";
 
                 for (var i = 0; i < data; i++) {
@@ -54,8 +54,8 @@
                         }
                     }
                 
-                html += "<li class='page-item' id='next'  href='javascript:void(0)' onclick=funNext() >";
-                html += "<a class='page-link' href='' >Next</a>";
+                html += "<li class='page-item' id='next' onclick=funNext() >";
+                html += "<a class='page-link' href='javascript:void(0)' >Next</a>";
                 html += "</li>";
 
                 $("#pages").append(html);
