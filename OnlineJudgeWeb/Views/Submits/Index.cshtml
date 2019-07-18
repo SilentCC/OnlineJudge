@@ -8,14 +8,82 @@
     
 </div>
 
+<nav aria-label="...">
+    <ul class="pagination pagination-lg" id="pages">
+    </ul>
+</nav>
+
 
 <script type="text/javascript">
 
+    var totalNum = 0;
+    var pageIndex = 0;
+    var pageSize = 30;
+    var preActive = 0;
     window.onload = function() {
 
         $.ajax({
+            type:'get',
+            url: url+"/api/Submits/pageNums",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            success: function(data) {
+
+                totalNum = data;
+                var html="<li class='page-item disabled' id='pre' onclick=funPre()>";
+                html += "<span class='page-link'>Previous</span>";
+                html += "</li>";
+
+                for (var i = 0; i < data; i++) {
+
+                    if (i == 0)
+                        html += "<li class='page-item active' id='page"+i+"'><a class='page-link' onclick=fun(" +
+                            i +
+                            ",30)>" +
+                            (i + 1) +
+                            "</a></li>";
+                    else {
+                        
+                        html += "<li class='page-item' id='page"+i+"'><a class='page-link' onclick=fun(" +
+                            i +
+                            ",30)>" +
+                            (i + 1) +
+                            "</a></li>";
+                        }
+                    }
+                
+                html += "<li class='page-item' id='next' >";
+                html += "<a class='page-link' onclick=funNext()>Next</a>";
+                html += "</li>";
+
+                $("#pages").append(html);
+            }
+        });
+
+        fun(0, 30);
+
+    }
+    function funNext() {
+
+        fun(pageIndex + 1, size);
+    }
+    
+    function funPre() {
+        fun(pageIndex - 1, size);
+    }
+    
+    function fun(index,size) {
+
+        $("#page" + preActive).removeClass("active");
+        $("#page" + index).addClass("active");
+        preActive = index;
+        pageIndex = index;
+        pageSize = size;
+        $.ajax({
             type: 'get',
-            url: "http://47.240.2.193:4399/api/Submits",
+            url: url+"/api/Submits/page/"+index+"/"+size,
             xhrFields: {
                 withCredentials: true
             },
@@ -34,15 +102,28 @@
                         html += "<a style='float:left'>"+"         "+term.id+".         "+term.title+"</a>"
                         html += "<a style='float:right'>" + term.userName + "         " + term.status + "          </a>";
                         html += "</div>";
-                     
+                        $("#submitList").empty();
                         $("#submitList").append(html);
                     });
+                
+                if (index == 0) {
+                    $("#pre").removeClass("disabled");
+                    $("#pre").addClass("disabled");
+                }
+                else if (index == totalNum - 1) {
+                    $("#next").removeClass("disabled");
+                    $("#next").addClass("disabled");
+                } else {
+                    $("#pre").removeClass("disabled");
+                    $("#next").removeClass("disabled");
+                }
 
             },
             error: function(data) {
                 console.log(data);
             }
         });
+        
     }
 
 </script>

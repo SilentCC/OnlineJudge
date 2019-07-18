@@ -26,6 +26,50 @@ namespace OnlineJudgeServer.Controllers
         {
             return View(await _context.Submits.ToListAsync());
         }
+        
+        [HttpGet("api/Submits/pageNums")]
+        public async Task<IActionResult> PageNumsApi()
+        {
+            var stopWatch = Stopwatch.StartNew();
+            var submits = await _context.Submits.ToListAsync();
+
+            var num = submits.Count;
+            var ans = 0;
+            if (num % 30 == 0)
+                ans = num / 30;
+            else
+            {
+                ans = num / 30 + 1;
+            }
+            return Ok(ans);
+        }
+        
+        [HttpGet("api/Submits/page/{index}/{size}")]
+        public async Task<IActionResult> PagesApi(int index,int size)
+        {
+            var stopWatch = Stopwatch.StartNew();
+            var submits = await _context.Submits.OrderByDescending(m => m.SubmitTime).Skip(index * size).Take(size)
+                .AsNoTracking().ToListAsync();
+            
+            var result = new List<object>();
+            foreach (var sub in submits)
+            {
+                var problem = await _context.Problems.FirstOrDefaultAsync(m => m.ProblemId == sub.ProblemId);
+                var user = await _context.Users.FirstOrDefaultAsync(m => m.UserId == sub.UserId);
+                result.Add(new
+                {
+                    id = sub.SubmitId,
+                    title = problem.Title,
+                    status = sub.JudgeResult,
+                    userName = user.UserName,
+                    submitTime = sub.SubmitTime
+                });
+            }
+             
+            Console.WriteLine(stopWatch.ElapsedMilliseconds+"ms");
+           
+            return Ok(result);
+        }
 
         [HttpGet("api/Submits")]
         public async Task<IActionResult> IndexApi()
