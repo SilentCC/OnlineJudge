@@ -32,21 +32,21 @@
             success: function(data) {
 
                 totalNum = data;
-                var html="<li class='page-item disabled' id='pre' onclick=funPre()>";
+                var html="<li class='page-item disabled' id='pre'  href='javascript:void(0)' onclick=funPre()>";
                 html += "<a class='page-link' href=''>Previous</a>";
                 html += "</li>";
 
                 for (var i = 0; i < data; i++) {
 
                     if (i == 0)
-                        html += "<li class='page-item active' id='page"+i+"'><a class='page-link' href='' onclick=fun(" +
+                        html += "<li class='page-item active' id='page"+i+"'><a class='page-link'  href='javascript:void(0)' onclick=fun(" +
                             i +
                             ",30)>" +
                             (i + 1) +
                             "</a></li>";
                     else {
                         
-                        html += "<li class='page-item' id='page"+i+"'><a class='page-link' href='' onclick=fun(" +
+                        html += "<li class='page-item' id='page"+i+"'><a class='page-link'  href='javascript:void(0)' onclick=fun(" +
                             i +
                             ",30)>" +
                             (i + 1) +
@@ -54,7 +54,7 @@
                         }
                     }
                 
-                html += "<li class='page-item' id='next' onclick=funNext() >";
+                html += "<li class='page-item' id='next'  href='javascript:void(0)' onclick=funNext() >";
                 html += "<a class='page-link' href='' >Next</a>";
                 html += "</li>";
 
