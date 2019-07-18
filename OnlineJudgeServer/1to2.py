@@ -11,6 +11,7 @@ for i in range(0,n):
 i=0
 j=n-1
 
+
 def abc(list1,i,j):
     i=i
     list4 = []
@@ -21,13 +22,21 @@ def abc(list1,i,j):
         list3.append(list1[j])
         list4.append(list3)
         return i,j,list4
-    elif list1[i]+list1[j]<m:
-        i+=1
-        return abc(list1,i,j)
-    else:
-        j-=1
-        return abc(list1,i,j)
 
+
+    while True:
+        if list1[i]+list1[j]<m:
+            i+=1
+            
+        if list1[i]+list1[j]>m:
+            j-=1
+            
+        if list1[i]+list1[j]==m:
+            list3 = []
+            list3.append(list1[i])
+            list3.append(list1[j])
+            list4.append(list3)
+            return i,j,list4
 
 
 while True:
@@ -38,7 +47,7 @@ while True:
     list3.append(list4)
     if i>=j:
         break
-    
+
 k=len(list3)
 print(k)
 for i in range(0,k):

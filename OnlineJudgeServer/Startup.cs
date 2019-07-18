@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using OnlineJudgeServer.Models;
 using OnlineJudgeServer.Services;
+using OnlineJudgeServer.Settings;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace OnlineJudgeServer
@@ -29,7 +30,8 @@ namespace OnlineJudgeServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<ExecuteCplusProgram>()
-                .AddTransient<ExecutePythonProgram>();
+                .AddTransient<ExecutePythonProgram>()
+                .AddTransient<ExecuteCSharpProgram>();
             
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -56,6 +58,9 @@ namespace OnlineJudgeServer
             {
                 mysqlOptions.ServerVersion(new Version(5, 7, 26), ServerType.MySql); 
             }));
+            
+            services.Configure<OnlineJudgeServerSettings>(Configuration.GetSection("OnlineJudgeServerSettings"));
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

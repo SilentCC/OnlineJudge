@@ -17,13 +17,16 @@ namespace OnlineJudgeServer.Controllers
     {
         private readonly ExecuteCplusProgram _executeCplusProgram;
         private readonly ExecutePythonProgram _executePythonProgram;
+        private readonly ExecuteCSharpProgram _executeCSharpProgram;
         private readonly OnlineJudgeContext _context;
 
         public JudgeController(ExecuteCplusProgram executeCplusProgram, ExecutePythonProgram executePythonProgram,
+            ExecuteCSharpProgram executeCSharpProgram,
             OnlineJudgeContext context)
         {
             _executeCplusProgram = executeCplusProgram;
             _executePythonProgram = executePythonProgram;
+            _executeCSharpProgram = executeCSharpProgram;
             _context = context;
         }
 
@@ -31,13 +34,18 @@ namespace OnlineJudgeServer.Controllers
         public async Task<IActionResult> Post([FromBody] Submit submit, int memory, int time)
         {
             JudgeMachineService judgeMachineService;
-            
-            if(submit.CodeType == (int)CodeType.gcc || submit.CodeType==(int)CodeType.gplus)
+
+            if (submit.CodeType == (int) CodeType.gcc || submit.CodeType == (int) CodeType.gplus)
                 judgeMachineService = new JudgeMachineService(_executeCplusProgram);
-            else
+            else if (submit.CodeType == (int) CodeType.python)
             {
                 judgeMachineService = new JudgeMachineService(_executePythonProgram);
                 time = time * 20;
+            }
+            else
+            {
+                judgeMachineService = new JudgeMachineService(_executeCSharpProgram);
+                time = time * 2;
             }
 
             var res = await judgeMachineService.Judge(submit, memory, time);

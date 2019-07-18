@@ -320,6 +320,7 @@ namespace OnlineJudgeServer.Services
     {
         gcc = 0,
         gplus = 1,
-        python = 2
+        python = 2,
+        csharp = 3
     }
 }

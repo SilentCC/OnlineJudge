@@ -40,7 +40,7 @@ namespace OnlineJudgeServer.Services
                 if (str == null)
                     return executeObj;
 
-                if (str.Contains("error"))
+                if (str.Contains("error",StringComparison.OrdinalIgnoreCase))
                 {
                     return JudgeStatus.CompileError.ToString();
                 }

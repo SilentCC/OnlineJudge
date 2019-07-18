@@ -16,9 +16,6 @@
 <link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/idea.css">
 
 
-
-
-
 <script src="~/js/codemirror-5.48.0/keymap/vim.js"></script>
 <script src="~/js/codemirror-5.48.0/addon/search/searchcursor.js"></script>
 <!--改善vim输入命令时的样式-->
@@ -97,6 +94,9 @@
                 <option value="2">
                     python3
                 </option>
+                <option value="3">
+                    c#
+                </option>
             </select>
         </div>
         <br/>
@@ -121,78 +121,94 @@
 
 <script type="text/javascript">
 
-    var editor = CodeMirror.fromTextArea(document.getElementById("sourceCode"), {
-        //Java高亮显示
-        //mode:"text/x-java",
-        mode: "text/x-c++src",
-        //mode: "text/x-python",
-        //mode: "text/x-cython",
-        //显示行号
-        lineNumbers: true,
+    var editor = CodeMirror.fromTextArea(document.getElementById("sourceCode"),
+        {
+            //Java高亮显示
+            //mode:"text/x-java",
+            mode: "text/x-c++src",
+            //mode: "text/x-python",
+            //mode: "text/x-cython",
+            //显示行号
+            lineNumbers: true,
 
-        //设置主题
-        //theme: "idea",
+            //设置主题
+            //theme: "idea",
 
-        //绑定Vim
-        // keyMap:"vim",
+            //绑定Vim
+            // keyMap:"vim",
 
-        //代码折叠
-        lineWrapping: true,
-        foldGutter: true,
-        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+            //代码折叠
+            lineWrapping: true,
+            foldGutter: true,
+            gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
 
-        //全屏模式
-        fullScreen: false,
+            //全屏模式
+            fullScreen: false,
 
-        //括号匹配
-        matchBrackets: true,
-        
-        matchTags: true,
+            //括号匹配
+            matchBrackets: true,
 
-        autoCloseBrackets: true,
-        
-        autoCloseTags:true,
-        
-        showTrailingSpace:true,
-        
-        showCursorWhenSelecting:true,
-        
-        //showHint:true,
+            matchTags: true,
 
-        //智能提示 
-        extraKeys:{"Ctrl-Space":"autocomplete"}//ctrl-space唤起智能提示
-    });
+            autoCloseBrackets: true,
+
+            autoCloseTags: true,
+
+            showTrailingSpace: true,
+
+            showCursorWhenSelecting: true,
+
+            //showHint:true,
+
+            //智能提示 
+            extraKeys: { "Ctrl-Space": "autocomplete" } //ctrl-space唤起智能提示
+        });
 
     editor.setSize("100%", "500");
-    
-    $("#codeType").change(function(){
-        var opt=$("#codeType").val();
-        
+
+    editor.on('change',
+        editor => {
+            localStorage.setItem(userId + "-" + id + "-" + codeProperty, editor.getValue());
+        });
+
+    $("#codeType").change(function() {
+        var opt = $("#codeType").val();
+
         if (opt == 0 || opt == 1) {
-            
+            codeProperty = "gcc";
+            editor.setValue(localStorage.getItem(userId + "-" + id + "-gcc"));
             update("text/x-c++src");
-            
-        }
-        else if (opt == 2) {
-            
+
+        } else if (opt == 2) {
+            codeProperty = "python";
+            editor.setValue(localStorage.getItem(userId + "-" + id + "-python"));
             update("text/x-python");
+        } else if (opt == 3) {
+            codeProperty = "csharp";
+            editor.setValue(localStorage.getItem(userId + "-" + id + "-csharp"));
+            update("text/x-csharp");
         }
     });
-    
+
     function update(mode) {
-        editor.setOption("mode",mode);
+        editor.setOption("mode", mode);
     }
-   
+
 </script>
 
+<script type="text/javascript">
+
+
+</script>
 
 
 <script type="text/javascript">
 
     var id;
-
+    var userId;
+    var codeProperty = "gcc";
     window.onload = function() {
-        
+
         id = getQueryVariable("problemId");
 
         $.ajax({
@@ -216,12 +232,53 @@
                 console.log(data);
             }
         });
+        userId = getCookie("userId");
+        var str = "using System;\n";
+        str += "using System.Collections.Generic;\n";
+        str += "namespace MyProgam;\n";
+        str += "{\n";
+        str += "   class Program\n";
+        str += "   {\n";
+        str += "       static void Main()\n";
+        str += "       {\n";
+        str += "           string line = Console.ReadLine();\n";
+        str += "           onsole.WriteLine(a+b);\n";
+        str += "       }\n";
+        str += "   }\n";
+        str += "}\n";
+
+        if (localStorage.getItem(userId + "-" + id + "-csharp") === null) {
+
+            localStorage.setItem(userId + "-" + id + "-csharp", str);
+
+        }
+
+        var str2 = "#include<stdio.h>\n";
+        str2 += "#include<algorithm>\n\n";
+        str2 += "using namespace std;\n";
+        str2 += "int main()\n";
+        str2 += "{\n";
+        str2 += "   return 0;\n";
+        str2 += "}\n";
+        if (localStorage.getItem(userId + "-" + id + "-gcc") === null) {
+
+            localStorage.setItem(userId + "-" + id + "-gcc", str2);
+        }
+
+        var str3 = "#nothing need to be writen";
+
+        if (localStorage.getItem(userId + "-" + id + "-python") === null) {
+            localStorage.setItem(userId + "-" + id + "-python", str3);
+        }
+
+        editor.setValue(localStorage.getItem(userId + "-" + id + "-" + codeProperty));
+
     }
+
 
     function SubmitJudge() {
 
         var userName = getCookie("userName");
-        var userId = getCookie("userId");
         if (userName == "") {
             window.location.href = "/Users/create";
         }
@@ -238,7 +295,7 @@
         html += preHtml;
 
         $("#result").html(html);
-        
+
         var codeType = $("#codeType").val();
         var codeSuffix = "";
         if (codeType == 0 || codeType == 1)
@@ -247,7 +304,7 @@
             codeSuffix = "py";
 
         var code = editor.getValue();
-        
+
         var data = {
             ProblemId: id,
             UserId: userId,
@@ -258,7 +315,7 @@
 
         var memory = $("#memory").html();
         var time = $("#time").html();
-        
+
 
         $.ajax({
             type: "post",
@@ -304,7 +361,3 @@
     }
 
 </script>
-
-
-
-
