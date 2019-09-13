@@ -97,6 +97,7 @@ namespace OnlineJudgeServer.Controllers
         }
 
         // GET: Submits/Details/5
+        [HttpGet("api/Submits/Details/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

@@ -1,0 +1,154 @@
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/lib/codemirror.css">
+<script src="~/js/codemirror-5.48.0/lib/codemirror.js"></script>
+<script src="~/js/codemirror-5.48.0/mode/clike/clike.js"></script>
+<script src="~/js/codemirror-5.48.0/mode/python/python.js"></script>
+
+
+<!--引入css文件，用以支持主题-->
+<!--
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/seti.css">
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/eclipse.css">
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/dracula.css">
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/xq-light.css">
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/addon/dialog/dialog.css">
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/addon/display/fullscreen.css">
+-->
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/idea.css">
+
+
+<script src="~/js/codemirror-5.48.0/keymap/vim.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/search/searchcursor.js"></script>
+<!--改善vim输入命令时的样式-->
+<script src="~/js/codemirror-5.48.0/addon/dialog/dialog.js"></script>
+
+<script src="~/js/codemirror-5.48.0/addon/mode/multiplex.js"></script>
+
+
+<!--支持代码折叠-->
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/addon/fold/foldgutter.css"/>
+<script src="~/js/codemirror-5.48.0/addon/fold/foldcode.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/fold/foldgutter.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/fold/brace-fold.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/fold/comment-fold.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/fold/xml-fold.js"></script>
+
+
+<script src="~/js/codemirror-5.48.0/addon/display/fullscreen.js"></script>
+
+<!--支持自动补全括号和标记-->
+<script src="~/js/codemirror-5.48.0/addon/edit/matchbrackets.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/edit/closebrackets.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/edit/trailingspace.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/edit/matchtags.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/edit/closetag.js"></script>
+
+<script src="~/js/codemirror-5.48.0/addon/hint/show-hint.js"></script>
+<!--自动补全-->
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/addon/hint/show-hint.css">
+<script src="~/js/codemirror-5.48.0/addon/hint/show-hint.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/hint/anyword-hint.js"></script>
+
+<style>
+    .CodeMirror {
+        border: 1px solid #eee;
+        height: auto;
+    }
+</style>
+<div class="card w-105 shadow-lg">
+    <br/>
+    <div class="form-group" style="margin: 15px">
+        <br/>
+        <div class="col-sm-10">
+            <textarea class="form-control" rows="20" style="display: none;" id="sourceCode"></textarea>
+        </div>
+        <br/>
+    </div>
+    <br/>
+</div>
+<br/>
+<hr/>
+<br/>
+<div id="result">
+
+</div>
+<script type="text/javascript">
+ var editor = CodeMirror.fromTextArea(document.getElementById("sourceCode"),
+        {
+            //Java高亮显示
+            //mode:"text/x-java",
+            mode: "text/x-c++src",
+            //mode: "text/x-python",
+            //mode: "text/x-cython",
+            //显示行号
+            lineNumbers: true,
+
+            //设置主题
+            //theme: "idea",
+
+            //绑定Vim
+            // keyMap:"vim",
+
+            //代码折叠
+            lineWrapping: true,
+            foldGutter: true,
+            gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+
+            //全屏模式
+            fullScreen: false,
+
+            //括号匹配
+            matchBrackets: true,
+
+            matchTags: true,
+
+            autoCloseBrackets: true,
+
+            autoCloseTags: true,
+
+            showTrailingSpace: true,
+
+            showCursorWhenSelecting: true,
+
+            //showHint:true,
+
+            //智能提示 
+            extraKeys: { "Ctrl-Space": "autocomplete" } //ctrl-space唤起智能提示
+        });
+
+    editor.setSize("100%", "500");
+</script>
+
+<script>
+
+window.onload = function() {
+
+        id = getQueryVariable("submitId");
+        
+         $.ajax({
+                    type: 'get',
+                    url: url + "/api/Submits/Details/" + id,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    crossDomain: true,
+                    
+                    success: function(data) {
+                        
+                         editor.setValue(data.sourceCode);
+                         
+                         if(data.codeType == 0 || data.codeType == 1)
+                         {
+                              editor.setOption("mode", "text/x-c++src");  
+                         }
+                         else if(data.codeType == 2)
+                         {
+                              editor.setOption("mode", "text/x-python");    
+                         }
+                         else
+                         {
+                              editor.setOption("mode", "text/x-csharp");    
+                         }
+                     }
+             });
+        }
+</script>

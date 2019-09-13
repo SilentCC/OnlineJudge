@@ -18,7 +18,7 @@
 
     var totalNum = 0;
     var pageIndex = 0;
-    var pageSize = 30;
+    var pageSize = 20;
     var preActive = 0;
     window.onload = function() {
 
@@ -41,14 +41,14 @@
                     if (i == 0)
                         html += "<li class='page-item active' id='page"+i+"'><a class='page-link'  href='javascript:void(0)' onclick=fun(" +
                             i +
-                            ",30)>" +
+                            ","+pageSize+")>" +
                             (i + 1) +
                             "</a></li>";
                     else {
                         
                         html += "<li class='page-item' id='page"+i+"'><a class='page-link'  href='javascript:void(0)' onclick=fun(" +
                             i +
-                            ",30)>" +
+                            ","+pageS+")>" +
                             (i + 1) +
                             "</a></li>";
                         }
@@ -62,7 +62,7 @@
             }
         });
 
-        fun(0, 30);
+        fun(0, pageSize);
 
     }
     function funNext() {
@@ -100,7 +100,7 @@
                             cla = "alert alert-danger";
                         var html = "<div class='"+cla+"' style='height:50px' id='submitId'>";
                         html += "<a style='float:left'>"+"         "+term.id+".         "+term.title+"</a>"
-                        html += "<a style='float:right'>" + term.userName + "         " + term.status + "          </a>";
+                        html += "<a href='Submits/Detail?submitId="+term.id+"' style='float:right'>" + term.userName + "         " + term.status + "          </a>";
                         html += "</div>";
                        
                         $("#submitList").append(html);
