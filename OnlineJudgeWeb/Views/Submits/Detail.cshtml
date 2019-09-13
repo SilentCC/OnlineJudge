@@ -134,6 +134,7 @@ window.onload = function() {
                     
                     success: function(data) {
                         
+                        alert(data.sourceCode);
                          editor.setValue(data.sourceCode);
                          
                          if(data.codeType == 0 || data.codeType == 1)

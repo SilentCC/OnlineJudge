@@ -95,9 +95,26 @@ namespace OnlineJudgeServer.Controllers
            
             return Ok(result);
         }
+        
+        [HttpGet("api/Submits/Details/{id}")]
+        public async Task<IActionResult> DetailsApi(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var submit = await _context.Submits
+                .FirstOrDefaultAsync(m => m.SubmitId == id);
+            if (submit == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(submit);
+        }
 
         // GET: Submits/Details/5
-        [HttpGet("api/Submits/Details/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
