@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj",
+    "projectUniqueName": "/Users/xiaokang/Desktop/OnlineJudge/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj",
     "projectName": "OnlineJudgeServer",
-    "projectPath": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj",
-    "outputPath": "/Users/xiaokang/Work/OnlineJudge/OnlineJudge/OnlineJudgeServer/obj/",
+    "projectPath": "/Users/xiaokang/Desktop/OnlineJudge/OnlineJudge/OnlineJudgeServer/OnlineJudgeServer.csproj",
+    "outputPath": "/Users/xiaokang/Desktop/OnlineJudge/OnlineJudge/OnlineJudgeServer/obj/",
     "projectStyle": "PackageReference",
     "originalTargetFrameworks": [
       "netcoreapp2.2"

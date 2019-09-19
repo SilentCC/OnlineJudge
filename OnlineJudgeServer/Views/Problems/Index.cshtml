@@ -11,48 +11,52 @@
 </p>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProblemId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalSubmit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AcceptSubmit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MemoryLimit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLimit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Note)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExampleInput)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExampleOutPut)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PushlishId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PublishTime)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProblemId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalSubmit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AcceptSubmit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemoryLimit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeLimit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExampleInput)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExampleOutPut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PushlishId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PublishTime)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ProblemId)
@@ -88,6 +92,9 @@
                 @Html.DisplayFor(modelItem => item.PushlishId)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.PublishTime)
             </td>
             <td>
@@ -96,6 +103,6 @@
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>

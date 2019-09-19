@@ -7,47 +7,47 @@
 <h1>Edit</h1>
 
 <h4>Problem</h4>
-<hr />
+<hr/>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ProblemId" class="control-label"></label>
-                <input asp-for="ProblemId" class="form-control" />
+                <input asp-for="ProblemId" class="form-control"/>
                 <span asp-validation-for="ProblemId" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Id"/>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
+                <input asp-for="Title" class="form-control"/>
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="AcceptSubmit" class="control-label"></label>
-                <input asp-for="AcceptSubmit" class="form-control" />
+                <input asp-for="AcceptSubmit" class="form-control"/>
                 <span asp-validation-for="AcceptSubmit" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TotalSubmit" class="control-label"></label>
-                <input asp-for="TotalSubmit" class="form-control" />
+                <input asp-for="TotalSubmit" class="form-control"/>
                 <span asp-validation-for="TotalSubmit" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MemoryLimit" class="control-label"></label>
-                <input asp-for="MemoryLimit" class="form-control" />
+                <input asp-for="MemoryLimit" class="form-control"/>
                 <span asp-validation-for="MemoryLimit" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="MemoryLimit" class="control-label"></label>
-                <input asp-for="MemoryLimit" class="form-control" />
+                <input asp-for="MemoryLimit" class="form-control"/>
                 <span asp-validation-for="MemoryLimit" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TimeLimit" class="control-label"></label>
-                <input asp-for="TimeLimit" class="form-control" />
+                <input asp-for="TimeLimit" class="form-control"/>
                 <span asp-validation-for="TimeLimit" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -57,7 +57,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Note" class="control-label"></label>
-                <input asp-for="Note" class="form-control" />
+                <input asp-for="Note" class="form-control"/>
                 <span asp-validation-for="Note" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -72,16 +72,21 @@
             </div>
             <div class="form-group">
                 <label asp-for="PushlishId" class="control-label"></label>
-                <input asp-for="PushlishId" class="form-control" />
+                <input asp-for="PushlishId" class="form-control"/>
                 <span asp-validation-for="PushlishId" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <input asp-for="CategoryId" class="form-control"/>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="PublishTime" class="control-label"></label>
-                <input asp-for="PublishTime" class="form-control" />
+                <input asp-for="PublishTime" class="form-control"/>
                 <span asp-validation-for="PublishTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary"/>
             </div>
         </form>
     </div>
@@ -92,5 +97,5 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
