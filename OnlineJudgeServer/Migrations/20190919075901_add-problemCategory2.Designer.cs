@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineJudgeServer.Models;
 
 namespace OnlineJudgeServer.Migrations
 {
     [DbContext(typeof(OnlineJudgeContext))]
-    partial class OnlineJudgeContextModelSnapshot : ModelSnapshot
+    [Migration("20190919075901_add-problemCategory2")]
+    partial class addproblemCategory2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,8 +51,6 @@ namespace OnlineJudgeServer.Migrations
                     b.Property<int>("TotalSubmit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("Problems");
                 });
@@ -117,14 +117,6 @@ namespace OnlineJudgeServer.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("OnlineJudgeServer.Models.Problem", b =>
-                {
-                    b.HasOne("OnlineJudgeServer.Models.ProblemCategory")
-                        .WithMany("Problems")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("OnlineJudgeServer.Models.Submit", b =>

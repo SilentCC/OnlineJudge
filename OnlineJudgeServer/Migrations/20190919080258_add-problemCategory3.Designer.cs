@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineJudgeServer.Models;
 
 namespace OnlineJudgeServer.Migrations
 {
     [DbContext(typeof(OnlineJudgeContext))]
-    partial class OnlineJudgeContextModelSnapshot : ModelSnapshot
+    [Migration("20190919080258_add-problemCategory3")]
+    partial class addproblemCategory3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

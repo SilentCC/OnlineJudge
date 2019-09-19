@@ -29,6 +29,8 @@ namespace OnlineJudgeServer.Models
 
         public int PushlishId { get; set; }
 
+        public int CategoryId { get; set; }
+
         public DateTime PublishTime { get; set; }
 
         public ICollection<Submit> Submits { get; set; }

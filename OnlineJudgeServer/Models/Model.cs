@@ -17,5 +17,7 @@ namespace OnlineJudgeServer.Models
         public DbSet<Submit> Submits { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<ProblemCategory> ProgramCategories { get; set; }
     }
 }
