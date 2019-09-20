@@ -1,8 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<h1 class="display-4">题库列表</h1>
+<ul class="nav nav-tabs" id="categoryNav">
+    <li class="nav-item">
+        <a class="nav-link display-cus active" id="cateDefault" onclick="defaultProblemsList()" >题库列表</a>
+    </li>
+</ul>
 
 <br/>
 <div id="problemList">
@@ -12,48 +15,104 @@
 
 <script type="text/javascript">
 
+    var lastCateId="cateDefault";
     window.onload = function() {
-
+        
+        var urlCategorys = url + "/api/Categories";
+        
+         $.ajax({
+             type: 'get',
+             url: urlCategorys,
+             xhrFields: {
+                withCredentials: true
+             },
+             crossDomain: true,
+             success: function(data) {
+                 
+                 var html="";
+                 $.each(data,
+                   function(i, term) {
+                     
+                       html+="<li class='nav-item'>";
+                       html+="<a class='nav-link  display-cus' id='cate"+term.categoryId+"' onclick='ProblemsList("+term.categoryId+")'>"+term.name+"</a>";
+                       html+="</li>";
+                       
+                       $("#categoryNav").append(html);
+                 });           
+             }
+           });
+         
+         defaultProblemsList()
+           
+    }
+    
+    function defaultProblemsList()
+    {
+        $("#"+lastCateId).removeClass("active");
+        $("#cateDefault").addClass("active");
+        
+        lastCateId = "cateDefault";
         var userId = getCookie("userId");
-
+                         
         var urlProblems = url + "/api/Problems";
         if (userId != "") {
-
-            urlProblems = url + "/api/Problems?userId=" + userId;
-        }
-        $.ajax({
-            type: 'get',
-            url: urlProblems,
-            xhrFields: {
-                withCredentials: true
-            },
-            crossDomain: true,
-            success: function(data) {
-
-                $.each(data,
-                    function(i, term) {
-
-                        var html = "<div class='card shadow-sm'>";
-                        html += "<div class='card-body'>";
-                        html += "<a href='Problems/Detail?problemId="+term.problem.problemId+"'>" + "<font size='5'>"+term.problem.problemId + " . " + term.problem.title + "</font></a>";
-                        
-                        html += "&nbsp;&nbsp;&nbsp;<small class='font-weight-light'>"+term.problem.acceptSubmit+" / "+term.problem.totalSubmit+"</small>"
-                        
-                        if (term.status==1) {
-                            html += "<ion-icon style='float:right' size='large' name='checkmark'></ion-icon>"; 
-                        }
-                        else if (term.status == 0) {
-                            html += "<ion-icon style='float:right' size='large' name='close'></ion-icon>"; 
-                        }
-                        html += "</div></div><br />";
-                        $("#problemList").append(html);
-                    });
-
-            },
-            error: function(data) {
-                console.log(data);
-            }
-        });
+                urlProblems = url + "/api/Problems?userId=" + userId;
+        }         
+        getProblemsList(urlProblems);
+    }
+    
+    function ProblemsList(cateId) {
+         $("#"+lastCateId).removeClass("active");
+         $("#cate"+cateId).addClass("active");
+         
+         lastCateId = "cate"+cateId;
+         var userId = getCookie("userId");
+         var urlCategory = url + "/api/Categories/Problems/" + cateId;
+         if (userId != "") {
+             
+             urlCategory +="?userId="+userId;
+         }
+        getProblemsList(urlCategory);
+        
+    }
+    
+    function getProblemsList(uri)
+    {
+         $("#problemList").empty();
+      
+                $.ajax({
+                    type: 'get',
+                    url: uri,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    crossDomain: true,
+                    success: function(data) {
+        
+                        $.each(data,
+                            function(i, term) {
+        
+                                var html = "<div class='card shadow-sm'>";
+                                html += "<div class='card-body'>";
+                                html += "<a href='Problems/Detail?problemId="+term.problem.problemId+"'>" + "<font size='5'>"+term.problem.problemId + " . " + term.problem.title + "</font></a>";
+                                
+                                html += "&nbsp;&nbsp;&nbsp;<small class='font-weight-light'>"+term.problem.acceptSubmit+" / "+term.problem.totalSubmit+"</small>"
+                                
+                                if (term.status==1) {
+                                    html += "<ion-icon style='float:right' size='large' name='checkmark'></ion-icon>"; 
+                                }
+                                else if (term.status == 0) {
+                                    html += "<ion-icon style='float:right' size='large' name='close'></ion-icon>"; 
+                                }
+                                html += "</div></div><br />";
+                                $("#problemList").append(html);
+                            });
+        
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
     }
 
 </script>

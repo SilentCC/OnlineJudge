@@ -70,13 +70,6 @@ namespace OnlineJudgeServer.Controllers
             return Ok(ans);
         }
 
-        public class HomeProblem
-        {
-            public Problem Problem;
-            public int Status;
-        }
-
-
         [HttpGet("api/Problems/Detail/{id}")]
         public async Task<IActionResult> DetailsApi(int? id)
         {
@@ -227,5 +220,11 @@ namespace OnlineJudgeServer.Controllers
         {
             return _context.Problems.Any(e => e.Id == id);
         }
+    }
+    
+    public class HomeProblem
+    {
+        public Problem Problem;
+        public int Status;
     }
 }

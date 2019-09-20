@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnlineJudgeServer.Models;
+using OnlineJudgeServer.Services;
 
 namespace OnlineJudgeServer.Controllers
 {
+    [EnableCors("AllowAllOrigin")]
     public class ProblemCategoriesController : Controller
     {
         private readonly OnlineJudgeContext _context;
@@ -16,6 +19,11 @@ namespace OnlineJudgeServer.Controllers
         public ProblemCategoriesController(OnlineJudgeContext context)
         {
             _context = context;
+        }
+        [HttpGet("api/Categories")]
+        public async Task<IActionResult> IndexApi()
+        {
+            return Ok(await _context.ProgramCategories.ToListAsync());
         }
 
         // GET: ProblemCategories
@@ -43,13 +51,42 @@ namespace OnlineJudgeServer.Controllers
         }
 
         [HttpGet("api/Categories/Problems/{id}")]
-        public async Task<IActionResult> CategoryProblems(int id)
+        public async Task<IActionResult> CategoryProblems(int id,int userId)
         {
             if (id == null)
                 return NotFound();
-            var result = await _context.Problems.Select(s => s.CategoryId == id).ToListAsync();
+            var result = await _context.Problems.Where(s => s.CategoryId == id).ToListAsync();
+            
+            var ans = new List<HomeProblem>();
 
-            return Ok(result);
+            foreach (var problem in result)
+            {
+                int isAc = -1;
+                if (userId != 0)
+                {
+                    var submits =
+                        await _context.Submits.Where(m =>
+                            m.UserId == userId && m.ProblemId == problem.ProblemId).ToListAsync();
+
+                    foreach (var submit in submits)
+                    {
+                        isAc = 0;
+                        if (submit.JudgeStatus == (int) JudgeStatus.Accept)
+                        {
+                            isAc = 1;
+                            break;
+                        }
+                    }
+                }
+
+                ans.Add(new HomeProblem
+                {
+                    Problem = problem,
+                    Status = isAc
+                });
+            }
+            
+            return Ok(ans);
         }
 
         // GET: ProblemCategories/Create
