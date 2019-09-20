@@ -13007,7 +13007,8 @@
     ]
   },
   "packageFolders": {
-    "/Users/xiaokang/.nuget/packages/": {}
+    "/Users/xiaokang/.nuget/packages/": {},
+    "/usr/local/share/install/dotnet-2.2.0/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
@@ -13018,16 +13019,17 @@
       "packagesPath": "/Users/xiaokang/.nuget/packages/",
       "outputPath": "/Users/xiaokang/Desktop/OnlineJudge/OnlineJudge/OnlineJudgeServer/obj/",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "/usr/local/share/install/dotnet-2.2.0/sdk/NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "/Users/xiaokang/.config/NuGet/NuGet.Config"
+        "/Users/xiaokang/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
-        "http://nuget.cnitblog.com/nuget/core": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://nuget.cnblogs.com/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.2": {
@@ -13070,12 +13072,7 @@
           }
         },
         "imports": [
-          "net461",
-          "net462",
-          "net47",
-          "net471",
-          "net472",
-          "net48"
+          "net461"
         ],
         "assetTargetFallback": true,
         "warn": true

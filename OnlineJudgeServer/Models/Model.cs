@@ -9,8 +9,9 @@ namespace OnlineJudgeServer.Models
     public class OnlineJudgeContext : DbContext
     {
         public OnlineJudgeContext(DbContextOptions<OnlineJudgeContext> options)
-           : base(options)
-        { }
+            : base(options)
+        {
+        }
 
         public DbSet<Problem> Problems { get; set; }
 
@@ -19,5 +20,6 @@ namespace OnlineJudgeServer.Models
         public DbSet<User> Users { get; set; }
 
         public DbSet<ProblemCategory> ProgramCategories { get; set; }
+        
     }
 }

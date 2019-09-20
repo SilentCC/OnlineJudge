@@ -42,6 +42,16 @@ namespace OnlineJudgeServer.Controllers
             return View(problemCategory);
         }
 
+        [HttpGet("api/Categories/Problems/{id}")]
+        public async Task<IActionResult> CategoryProblems(int id)
+        {
+            if (id == null)
+                return NotFound();
+            var result = await _context.Problems.Select(s => s.CategoryId == id).ToListAsync();
+
+            return Ok(result);
+        }
+
         // GET: ProblemCategories/Create
         public IActionResult Create()
         {
