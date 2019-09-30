@@ -26,7 +26,7 @@ namespace OnlineJudgeServer.Services
 
             try
             {
-                var compileStr = $"g++ {file} -o {executeObj}";
+                var compileStr = $"g++ {file} -o {executeObj} -std=c++11";
 
                 var str = compileStr.Bash();
 
