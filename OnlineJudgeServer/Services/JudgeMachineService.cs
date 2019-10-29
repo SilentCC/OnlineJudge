@@ -95,8 +95,8 @@ namespace OnlineJudgeServer.Services
                     {
                         return JudgeStatus.RuntimeError;
                     }
-                    Console.WriteLine(output);
-                    Console.WriteLine(outputData[i]);
+                    //Console.WriteLine(output);
+                    //Console.WriteLine(outputData[i]);
 
                     if (!JudgeData(output, outputData[i], judgeMode))
                     {

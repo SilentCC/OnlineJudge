@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.Operations;
 using OnlineJudgeServer.Models;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
@@ -36,19 +37,13 @@ namespace OnlineJudgeServer.Services
                 }
 
                 File.Delete(file);
-                
-                if (str == null)
-                    return executeObj;
 
                 if (str.Contains("error",StringComparison.OrdinalIgnoreCase))
                 {
                     return JudgeStatus.CompileError.ToString();
                 }
 
-                if (str != "")
-                {
-                    return JudgeStatus.RuntimeError.ToString();
-                }
+                return executeObj;
             }
             catch (Exception e)
             {
