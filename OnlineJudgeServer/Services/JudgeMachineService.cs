@@ -86,6 +86,7 @@ namespace OnlineJudgeServer.Services
 
                     if (_errorData != "")
                     {
+                        Console.WriteLine($"第{i}条数据出错");
                         return JudgeStatus.RuntimeError;
                     }
 
@@ -100,6 +101,7 @@ namespace OnlineJudgeServer.Services
 
                     if (!JudgeData(output, outputData[i], judgeMode))
                     {
+                        Console.WriteLine(output+":"+outputData[i]);
                         status = JudgeStatus.WrongAnswer;
                         break;
                     }
