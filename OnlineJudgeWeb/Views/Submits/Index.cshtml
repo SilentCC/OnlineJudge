@@ -75,6 +75,8 @@
     }
     
     function fun(index,size) {
+        
+        var username = getCookie("userName");
 
         $("#page" + preActive).removeClass("active");
         $("#page" + index).addClass("active");
@@ -99,8 +101,11 @@
                         else
                             cla = "alert alert-danger";
                         var html = "<div class='"+cla+"' style='height:50px' id='submitId'>";
-                        html += "<a style='float:left'>"+"         "+term.id+".         "+term.title+"</a>"
-                        html += "<a href='Submits/Detail?submitId="+ term.id + "' style='float:right'>" + term.userName + "         " + term.status + "          </a>";
+                        html += "<a href='Problems/Detail?problemId="+term.problemId+"' style='float:left'>"+"         "+term.id+".         "+term.title+"</a>";
+                        if(username!=""&&username == term.userName)
+                             html += "<a href='Submits/Detail?submitId="+ term.id + "' style='float:right'>" + term.userName + "         " + term.status + "          </a>";
+                        else
+                             html += "<a style='float:right'>" + term.userName + "         " + term.status + "          </a>";
                         html += "</div>";
                        
                         $("#submitList").append(html);
