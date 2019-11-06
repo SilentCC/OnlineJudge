@@ -59,6 +59,7 @@ namespace OnlineJudgeServer.Controllers
                 result.Add(new
                 {
                     id = sub.SubmitId,
+                    problemId = sub.ProblemId,
                     title = problem.Title,
                     status = sub.JudgeResult,
                     userName = user.UserName,
