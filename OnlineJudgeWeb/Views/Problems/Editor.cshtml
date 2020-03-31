@@ -1,0 +1,328 @@
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/lib/codemirror.css">
+<script src="~/js/codemirror-5.48.0/lib/codemirror.js"></script>
+<script src="~/js/codemirror-5.48.0/mode/clike/clike.js"></script>
+<script src="~/js/codemirror-5.48.0/mode/python/python.js"></script>
+
+
+<!--引入css文件，用以支持主题-->
+<!--
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/seti.css">
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/eclipse.css">
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/dracula.css">
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/xq-light.css">
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/addon/dialog/dialog.css">
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/addon/display/fullscreen.css">
+-->
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/theme/idea.css">
+
+
+<script src="~/js/codemirror-5.48.0/keymap/vim.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/search/searchcursor.js"></script>
+<!--改善vim输入命令时的样式-->
+<script src="~/js/codemirror-5.48.0/addon/dialog/dialog.js"></script>
+
+<script src="~/js/codemirror-5.48.0/addon/mode/multiplex.js"></script>
+
+
+<!--支持代码折叠-->
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/addon/fold/foldgutter.css"/>
+<script src="~/js/codemirror-5.48.0/addon/fold/foldcode.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/fold/foldgutter.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/fold/brace-fold.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/fold/comment-fold.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/fold/xml-fold.js"></script>
+
+
+<script src="~/js/codemirror-5.48.0/addon/display/fullscreen.js"></script>
+
+<!--支持自动补全括号和标记-->
+<script src="~/js/codemirror-5.48.0/addon/edit/matchbrackets.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/edit/closebrackets.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/edit/trailingspace.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/edit/matchtags.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/edit/closetag.js"></script>
+
+<script src="~/js/codemirror-5.48.0/addon/hint/show-hint.js"></script>
+<!--自动补全-->
+<link rel="stylesheet" href="~/js/codemirror-5.48.0/addon/hint/show-hint.css">
+<script src="~/js/codemirror-5.48.0/addon/hint/show-hint.js"></script>
+<script src="~/js/codemirror-5.48.0/addon/hint/anyword-hint.js"></script>
+
+<style>
+    .CodeMirror {
+        border: 1px solid #eee;
+        height: auto;
+    }
+</style>
+
+
+<div class="card w-105 shadow-lg">
+    <br/>
+
+    <div class="form-group" style="margin: 15px">
+        <div class="col-sm-2">
+            <label class="display-5">选择编译器</label>
+        </div>
+        <div class="col-sm-4">
+            <select id="codeType" class="form-control">
+                <option value="0">
+                    gcc
+                </option>
+                <option value="1">
+                    g++
+                </option>
+                <option value="2">
+                    python3
+                </option>
+                <option value="3">
+                    c#
+                </option>
+            </select>
+        </div>
+        <br/>
+        <div class="col-sm-10">
+            <textarea class="form-control" rows="20" style="display: none;" id="sourceCode"></textarea>
+        </div>
+        <br/>
+    </div>
+    <br/>
+</div>
+<br/>
+<hr/>
+<br/>
+<div id="result">
+
+</div>
+
+<script type="text/javascript">
+
+    var editor = CodeMirror.fromTextArea(document.getElementById("sourceCode"),
+        {
+            //Java高亮显示
+            //mode:"text/x-java",
+            mode: "text/x-c++src",
+            //mode: "text/x-python",
+            //mode: "text/x-cython",
+            //显示行号
+            lineNumbers: true,
+
+            //设置主题
+            //theme: "idea",
+
+            //绑定Vim
+            // keyMap:"vim",
+
+            //代码折叠
+            lineWrapping: true,
+            foldGutter: true,
+            gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+
+            //全屏模式
+            fullScreen: false,
+
+            //括号匹配
+            matchBrackets: true,
+
+            matchTags: true,
+
+            autoCloseBrackets: true,
+
+            autoCloseTags: true,
+
+            showTrailingSpace: true,
+
+            showCursorWhenSelecting: true,
+
+            //showHint:true,
+
+            //智能提示 
+            extraKeys: { "Ctrl-Space": "autocomplete" } //ctrl-space唤起智能提示
+        });
+
+    editor.setSize("100%", "1000");
+
+    editor.on('change',
+        editor => {
+            localStorage.setItem(userId + "-" + id + "-" + codeProperty, editor.getValue());
+        });
+
+    $("#codeType").change(function() {
+        var opt = $("#codeType").val();
+
+        if (opt == 0 || opt == 1) {
+            codeProperty = "gcc";
+            editor.setValue(localStorage.getItem(userId + "-" + id + "-gcc"));
+            update("text/x-c++src");
+
+        } else if (opt == 2) {
+            codeProperty = "python";
+            editor.setValue(localStorage.getItem(userId + "-" + id + "-python"));
+            update("text/x-python");
+        } else if (opt == 3) {
+            codeProperty = "csharp";
+            editor.setValue(localStorage.getItem(userId + "-" + id + "-csharp"));
+            update("text/x-csharp");
+        }
+    });
+
+    function update(mode) {
+        editor.setOption("mode", mode);
+    }
+
+</script>
+
+<script type="text/javascript">
+
+
+</script>
+
+
+<script type="text/javascript">
+
+    var id;
+    var userId;
+    var codeProperty = "gcc";
+    window.onload = function() {
+
+        id = getQueryVariable("problemId");
+
+        $.ajax({
+            type: 'get',
+            url: url + "/api/Problems/Detail/" + id,
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            success: function(data) {
+
+                $("#title").html(data.title);
+                $("#memory").html(data.memoryLimit);
+                $("#time").html(data.timeLimit);
+                $("#content").html(data.content);
+                $("#exampleInput").html(data.exampleInput);
+                $("#exampleOutPut").html(data.exampleOutPut);
+
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
+       
+        userId = getCookie("userId");
+        var str = "using System;\n";
+        str += "using System.Collections.Generic;\n\n";
+        str += "namespace MyProgam\n";
+        str += "{\n";
+        str += "  class Program\n";
+        str += "  {\n";
+        str += "    static void Main()\n";
+        str += "    {\n";
+        str += "      string line = Console.ReadLine();\n";
+        str += "      Console.WriteLine(a+b);\n";
+        str += "    }\n";
+        str += "  }\n";
+        str += "}\n";
+
+        if (localStorage.getItem(userId + "-" + id + "-csharp") === null) {
+
+            localStorage.setItem(userId + "-" + id + "-csharp", str);
+
+        }
+
+        var str2 = "#include<stdio.h>\n";
+        str2 += "#include<algorithm>\n\n";
+        str2 += "using namespace std;\n";
+        str2 += "int main()\n";
+        str2 += "{\n";
+        str2 += "  return 0;\n";
+        str2 += "}\n";
+        if (localStorage.getItem(userId + "-" + id + "-gcc") === null) {
+
+            localStorage.setItem(userId + "-" + id + "-gcc", str2);
+        }
+
+        var str3 = "#nothing need to be writen";
+
+        if (localStorage.getItem(userId + "-" + id + "-python") === null) {
+            localStorage.setItem(userId + "-" + id + "-python", str3);
+        }
+
+        editor.setValue(localStorage.getItem(userId + "-" + id + "-" + codeProperty));
+
+    }
+
+
+    function SubmitJudge() {
+
+        var userName = getCookie("userName");
+        if (userName == "") {
+            window.location.href = "/Users/create";
+        }
+
+        var preHtml = $("#result").html();
+
+        var html = "<div class='alert alert-secondary' id='submitId'>";
+        html += "<div class='clearfix'>";
+        html += "<strong>Judging...</strong>";
+        html += "<div class='spinner-border float-right' role='status'>";
+        html += "<span class='sr-only'>Loading...</span>";
+        html += "</div></div></div>";
+
+        html += preHtml;
+
+        $("#result").html(html);
+
+        var codeType = $("#codeType").val();
+        var codeSuffix = "";
+        if (codeType == 0 || codeType == 1)
+            codeSuffix = "cpp";
+        else if(codeType == 2)
+            codeSuffix = "py";
+        else
+            codeSuffix = "csharp";
+
+        var code = editor.getValue();
+
+        var data = {
+            ProblemId: id,
+            UserId: userId,
+            CodeType: codeType,
+            CodeSuffix: codeSuffix,
+            SourceCode: code
+        };
+
+        var memory = $("#memory").html();
+        var time = $("#time").html();
+
+
+        $.ajax({
+            type: "post",
+            url: url + "/api/Judge/submit/" + memory + "/" + time,
+            contentType: "application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            data: JSON.stringify(data),
+            dataType: "json",
+            success: function(data) {
+
+                $("#submitId").empty();
+
+
+                if (data.judgeStatus == 2) {
+
+                    $("#submitId").attr("class", "alert alert-success");
+                } else {
+                    $("#submitId").attr("class", "alert alert-danger");
+                }
+
+                $("#submitId").html(data.judgeResult);
+
+                $("#submitId").attr("id", "submit" + data.submitId);
+
+            }
+        });
+
+    }
+</script>
