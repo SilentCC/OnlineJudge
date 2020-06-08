@@ -1,0 +1,77 @@
+@model IEnumerable<OnlineJudgeServer.Models.Submit>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProblemId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JudgeStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JudgeResult)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubmitTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodeType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodeSuffix)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SourceCode)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProblemId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JudgeStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JudgeResult)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubmitTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodeType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodeSuffix)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SourceCode)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SubmitId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SubmitId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SubmitId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

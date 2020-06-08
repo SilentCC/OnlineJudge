@@ -1,0 +1,96 @@
+@model OnlineJudgeServer.Models.Problem
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Problem</h4>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProblemId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProblemId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AcceptSubmit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AcceptSubmit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalSubmit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TotalSubmit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MemoryLimit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MemoryLimit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TimeLimit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TimeLimit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ExampleInput)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ExampleInput)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ExampleOutPut)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ExampleOutPut)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PushlishId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PushlishId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CategoryId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PublishTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PublishTime)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

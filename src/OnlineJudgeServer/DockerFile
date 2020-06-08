@@ -1,0 +1,28 @@
+ARG BASE_IMAGE
+ARG RUNTIME_IMAGE
+FROM ${BASE_IMAGE} AS base
+WORKDIR /app
+EXPOSE 80
+
+#ARG RUNTIME_IMAGE
+FROM ${RUNTIME_IMAGE} AS build
+ARG PROJECT
+WORKDIR /src
+COPY . .
+COPY src/NuGet.config  src/${PROJECT}/
+RUN dotnet restore "src/${PROJECT}/${PROJECT}.csproj"
+WORKDIR "/src/src/${PROJECT}"
+RUN dotnet build "${PROJECT}.csproj" -c Release -o /app
+
+FROM build AS publish
+ARG PROJECT
+RUN dotnet publish "${PROJECT}.csproj" -c Release -o /app
+
+FROM base AS final
+ARG PROJECT
+WORKDIR /app
+COPY --from=publish /app .
+RUN echo "dotnet ${PROJECT}.dll --urls http://*.80" > run.sh
+#ENTRYPOINT ["sh","run.sh"]
+HEALTHCHECK --interval=5s --timeout=20s \
+	CMD curl -fs -o /dev/null localhost/alive || exit 1

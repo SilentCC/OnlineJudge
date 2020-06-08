@@ -1,0 +1,193 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using OnlineJudgeServer.Models;
+
+namespace OnlineJudgeServer.Controllers
+{
+    [EnableCors("AllowAllOrigin")]
+    public class UsersController : Controller
+    {
+        private readonly OnlineJudgeContext _context;
+
+        public UsersController(OnlineJudgeContext context)
+        {
+            _context = context;
+        }
+
+        // GET: Users
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Users.ToListAsync());
+        }
+
+        [HttpPost("api/Users/login")]
+        public async Task<IActionResult> Login([FromBody] User user)
+        {
+            var use = await  _context.Users.FirstOrDefaultAsync(
+                m => m.UserName == user.UserName && m.Password == user.Password);
+
+            int success;
+            if (use == null)
+                success = 0;
+            else
+            {
+                success = use.UserId;
+            }
+            var res = new
+            {
+                success
+            };
+            return Ok(res);
+        }
+
+        // GET: Users/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.UserId == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        // GET: Users/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost("api/Users/create")]
+        public async Task<IActionResult> CreateApi([FromBody] User user)
+        {
+            user.RegisterTime = DateTime.Now;
+            _context.Add(user);
+            await _context.SaveChangesAsync();
+
+            var u = await _context.Users.LastAsync(m => m.UserName == user.UserName);
+            var id = 0;
+            if (u != null)
+                id = u.UserId;
+            var res = new
+            {
+                success = id
+            };
+            return Ok(res);
+            
+        }
+
+        // POST: Users/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("UserId,UserName,Email,Password,RegisterTime")] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(user);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(user);
+        }
+
+        // GET: Users/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        // POST: Users/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,UserName,Email,Password,RegisterTime")] User user)
+        {
+            if (id != user.UserId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(user);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UserExists(user.UserId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(user);
+        }
+
+        // GET: Users/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.UserId == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        // POST: Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool UserExists(int id)
+        {
+            return _context.Users.Any(e => e.UserId == id);
+        }
+    }
+}
