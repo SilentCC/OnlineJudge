@@ -53,6 +53,7 @@ namespace OnlineJudgeServer.Services
                 {
                     process.Start();
                     //process.BeginErrorReadLine();
+                    Console.WriteLine(process.);
                     var streamWriter = process.StandardInput;
                     var streamReader = process.StandardOutput;
  

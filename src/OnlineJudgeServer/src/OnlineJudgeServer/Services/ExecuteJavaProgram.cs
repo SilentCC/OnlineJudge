@@ -44,7 +44,7 @@ namespace OnlineJudgeServer.Services
 
                 if (str=="")
                 {
-                    if (File.Exists(this._javaConsoleTargePath))
+                    if (File.Exists($"{this._javaConsoleTargePath}.class"))
                     {
                         return this._javaConsoleTargePath;
                     }
