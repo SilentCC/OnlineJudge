@@ -37,7 +37,7 @@ namespace OnlineJudgeServer.Services
                     return JudgeStatus.CompileError.ToString();
                 }
 
-                if (!File.Exists(this._javaConsoleTargePath))
+                if (!File.Exists($"{this._javaConsoleTargePath}.class"))
                 {
                     return JudgeStatus.CompileError.ToString();
                 }
