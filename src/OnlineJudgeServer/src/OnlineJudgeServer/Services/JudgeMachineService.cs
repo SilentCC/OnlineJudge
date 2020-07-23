@@ -90,7 +90,7 @@ namespace OnlineJudgeServer.Services
                     }
 
                     process.WaitForExit();
-
+                    Console.WriteLine(process.ExitCode);
                     if (process.ExitCode != 0)
                     {
                         return JudgeStatus.RuntimeError;
