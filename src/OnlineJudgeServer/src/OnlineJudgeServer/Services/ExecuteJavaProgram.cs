@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using OnlineJudgeServer.Models;
@@ -7,21 +7,20 @@ using Microsoft.Extensions.Options;
 
 namespace OnlineJudgeServer.Services
 {
-    public class ExecuteCSharpProgram : IExecuteProgram
+    public class ExecuteJavaProgram : IExecuteProgram
     {
-        private readonly string _dotNetConsoleProgramPath ;
-        private readonly string _dotNetConsoleCsprojPath;
-        private readonly string _dotNetConsoleDLLPath;
+        private readonly string _javaConsoleProgramPath ;
+        private readonly string _javaConsoleTargePath;
 
-        public ExecuteCSharpProgram(IOptions<OnlineJudgeServerSettings> options)
+        public ExecuteJavaProgram(IOptions<OnlineJudgeServerSettings> options)
         {
-            _dotNetConsoleProgramPath = options.Value.DotNetConsoleProgramPath;
-            _dotNetConsoleCsprojPath = options.Value.DotNetConsoleCsprojPath;
-            _dotNetConsoleDLLPath = options.Value.DotNetConsoleDLLPath;
+            this._javaConsoleProgramPath = options.Value.JavaConsoleProgramPath;
+            this._javaConsoleTargePath = options.Value.JavaConsoleTargetPath;
+            
         }
         public string Complie(Submit submit)
         {
-            using (var writer = new StreamWriter(_dotNetConsoleProgramPath))
+            using (var writer = new StreamWriter(this._javaConsoleProgramPath))
             {
                 writer.WriteLine(submit.SourceCode);
                 writer.Flush();
@@ -29,7 +28,7 @@ namespace OnlineJudgeServer.Services
 
             try
             {
-                var compileStr = $"dotnet build {_dotNetConsoleCsprojPath}";
+                var compileStr = $"javac {this._javaConsoleProgramPath}";
 
                 var str = compileStr.Bash();
 
@@ -38,16 +37,16 @@ namespace OnlineJudgeServer.Services
                     return JudgeStatus.CompileError.ToString();
                 }
 
-                if (!File.Exists(_dotNetConsoleDLLPath))
+                if (!File.Exists(this._javaConsoleTargePath))
                 {
                     return JudgeStatus.CompileError.ToString();
                 }
 
                 if (str=="")
                 {
-                    if (File.Exists(_dotNetConsoleDLLPath))
+                    if (File.Exists(this._javaConsoleTargePath))
                     {
-                        return _dotNetConsoleDLLPath;
+                        return this._javaConsoleTargePath;
                     }
                 }
 
@@ -62,7 +61,7 @@ namespace OnlineJudgeServer.Services
         public ProcessStartInfo GetProcessStartInfo(string file)
         {
             var processInfo = new ProcessStartInfo();
-            processInfo.FileName = $"dotnet";
+            processInfo.FileName = $"java";
             processInfo.UseShellExecute = false;
             processInfo.RedirectStandardInput = true;
             processInfo.RedirectStandardOutput = true;

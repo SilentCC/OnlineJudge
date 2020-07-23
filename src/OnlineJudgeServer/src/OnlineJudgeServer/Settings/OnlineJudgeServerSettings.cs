@@ -6,5 +6,9 @@ namespace OnlineJudgeServer.Settings
         public string DotNetConsoleCsprojPath { get; set; }
 
         public string DotNetConsoleDLLPath { get; set; }
+
+        public string JavaConsoleProgramPath { get; set; }
+
+        public string JavaConsoleTargetPath { get; set; }
     }
 }

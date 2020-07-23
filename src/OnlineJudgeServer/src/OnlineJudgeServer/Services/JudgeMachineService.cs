@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.CodeAnalysis.Operations;
 using OnlineJudgeServer.Models;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
@@ -27,10 +26,10 @@ namespace OnlineJudgeServer.Services
 
         public async Task<JudgeStatus> Judge(Submit submit, double memoryLimit, int timeLimit)
         {
-            var inputData = GetData($"{submit.ProblemId}.input");
-            var outputData = GetData($"{submit.ProblemId}.output");
+            var inputData = GetData($"source/{submit.ProblemId}.input");
+            var outputData = GetData($"source/{submit.ProblemId}.output");
 
-            var judgeMode = GetMode($"{submit.ProblemId}.mode");
+            var judgeMode = GetMode($"source/{submit.ProblemId}.mode");
 
             var executeObj = _executeProgram.Complie(submit);
 
@@ -325,6 +324,7 @@ namespace OnlineJudgeServer.Services
         gcc = 0,
         gplus = 1,
         python = 2,
-        csharp = 3
+        csharp = 3,
+        java = 4
     }
 }

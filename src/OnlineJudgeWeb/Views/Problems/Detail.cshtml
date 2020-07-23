@@ -97,6 +97,9 @@
                 <option value="3">
                     c#
                 </option>
+                <option value="4">
+                    java
+                </option> 
             </select>
         </div>
         <br/>
@@ -188,6 +191,11 @@
             editor.setValue(localStorage.getItem(userId + "-" + id + "-csharp"));
             update("text/x-csharp");
         }
+        else if(opt == 4){
+            codeProperty = "java";
+            editor.setValue(localStorage.getItem(userId+ "-" + id + "-java"));
+            update("text/x-csharp");
+        }
     });
 
     function update(mode) {
@@ -271,7 +279,16 @@
         if (localStorage.getItem(userId + "-" + id + "-python") === null) {
             localStorage.setItem(userId + "-" + id + "-python", str3);
         }
-
+      
+        var str4 = "\npublic class Main {\n\n";
+        str4 += "public static void main(String[] args) {\n\n";
+        str4 += "System.out.println(\"hello world!\");\n\n";
+        str4 += "}\n}\n";
+        
+        if(localStorage.getItem(userId + "-" + id + "-java")===null) {
+            localStorage.setItem(userId + "-" + id + "-java",str4);
+        }
+        
         editor.setValue(localStorage.getItem(userId + "-" + id + "-" + codeProperty));
 
     }
@@ -303,8 +320,10 @@
             codeSuffix = "cpp";
         else if(codeType == 2)
             codeSuffix = "py";
-        else
+        else if(codeType == 3)
             codeSuffix = "csharp";
+        else
+            codeSuffix = "java";
 
         var code = editor.getValue();
 
