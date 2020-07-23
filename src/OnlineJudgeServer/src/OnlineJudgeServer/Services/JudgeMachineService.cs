@@ -26,10 +26,10 @@ namespace OnlineJudgeServer.Services
 
         public async Task<JudgeStatus> Judge(Submit submit, double memoryLimit, int timeLimit)
         {
-            var inputData = GetData($"source/{submit.ProblemId}.input");
-            var outputData = GetData($"source/{submit.ProblemId}.output");
+            var inputData = GetData($"Source/{submit.ProblemId}.input");
+            var outputData = GetData($"Source/{submit.ProblemId}.output");
 
-            var judgeMode = GetMode($"source/{submit.ProblemId}.mode");
+            var judgeMode = GetMode($"Source/{submit.ProblemId}.mode");
 
             var executeObj = _executeProgram.Complie(submit);
 
