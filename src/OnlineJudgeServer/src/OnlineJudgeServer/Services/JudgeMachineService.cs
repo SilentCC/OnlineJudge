@@ -91,8 +91,8 @@ namespace OnlineJudgeServer.Services
 
                     process.WaitForExit();
                     Console.WriteLine(process.ExitCode);
-                    Console.WriteLine(process.StandardError.ToString());
-                    if (process.ExitCode != 0 && process.ExitCode !=1 )
+            
+                    if (process.ExitCode != 0 )
                     {
                         return JudgeStatus.RuntimeError;
                     }
