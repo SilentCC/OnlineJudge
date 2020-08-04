@@ -55,10 +55,10 @@ namespace OnlineJudgeServer
             });
 
             var connection =
-                @"Server=47.240.2.193;Database=onlineJudge;port=3306;user=root;password=dage123;Convert Zero Datetime=True;";
+                @"Server=localhost;Database=onlineJudge;port=3306;user=root;password=Dage_123456.;Convert Zero Datetime=True;";
             services.AddDbContext<OnlineJudgeContext>(options => options.UseMySql(connection,mysqlOptions =>
             {
-                mysqlOptions.ServerVersion(new Version(5, 7, 26), ServerType.MySql); 
+                mysqlOptions.ServerVersion(new Version(5, 7, 31), ServerType.MySql); 
             }));
 
             services.Configure<OnlineJudgeServerSettings>(this.Configuration.GetSection("OnlineJudgeServerSettings"));
