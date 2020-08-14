@@ -30,6 +30,14 @@ namespace OnlineJudgeServer.Controllers
             return View(await _context.Problems.ToListAsync());
         }
 
+        [HttpGet("api/Problems/lastId")]
+        public async Task<IActionResult> GetLastId()
+        {
+            var problems = await this._context.Problems.ToListAsync();
+
+            return this.Ok(problems.Last().Id);
+        }
+
         [HttpGet("api/Problems")]
         public async Task<IActionResult> IndexApi(int userId)
         {
