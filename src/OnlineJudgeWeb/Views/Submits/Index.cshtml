@@ -31,39 +31,89 @@
             success: function(data) {
 
                 totalNum = data;
-                var html="<li class='page-item disabled' id='pre'  onclick=funPre()>";
-                html += "<a class='page-link'  href='javascript:void(0)'>Previous</a>";
-                html += "</li>";
-
-                for (var i = 0; i < data; i++) {
-
-                    if (i == 0)
-                        html += "<li class='page-item active' id='page"+i+"'><a class='page-link'  href='javascript:void(0)' onclick=fun(" +
-                            i +
-                            ","+pageSize+")>" +
-                            (i + 1) +
-                            "</a></li>";
-                    else {
-                        
-                        html += "<li class='page-item' id='page"+i+"'><a class='page-link'  href='javascript:void(0)' onclick=fun(" +
-                            i +
-                            ","+pageSize+")>" +
-                            (i + 1) +
-                            "</a></li>";
-                        }
-                    }
-                
-                html += "<li class='page-item' id='next' onclick=funNext() >";
-                html += "<a class='page-link' href='javascript:void(0)' >Next</a>";
-                html += "</li>";
-
-                $("#pages").append(html);
+                getPaginationList(1); 
             }
         });
 
         fun(0, pageSize);
 
     }
+    
+    function getPaginationList(index)
+    {
+         $("#pages").empty(); 
+        var html="<li class='page-item disabled' id='pre'  onclick=funPre()>";
+        html += "<a class='page-link'  href='javascript:void(0)'>Previous</a>";
+        html += "</li>";
+       
+        var pageArray = new Array(10);
+        var pos=0;
+        var startButton=-1;
+        var endButton=-1;
+        if(index<=5)
+        {
+            for(var i=1;i<=9;i++) 
+                {
+                    pageArray[pos++]=i;    
+                }
+            endButton = totalNum;
+        }
+        else if(index > 5 && index < totalNum-4)
+        {
+            for(var i=index-4;i<=index+4;i++)
+                {
+                    pageArray[pos++]=[i];
+                    
+                }
+            startButton = 1;
+            endButton = totalNum;
+        }
+        else
+            {
+                for(var i=totalNum-8;i<=totalNum;i++)
+                    {
+                        pageArray[pos++]=[i];
+                    }
+                startButton = 1;
+            }
+       
+        if(startButton!=-1)
+        {
+             html += "<li class='page-item' id='page0'><a class='page-link'  href='javascript:void(0)' onclick=fun(0,"+pageSize+")>1</a></li>"; 
+             html+="...";
+         }
+        for (var i = 0; i < pos; i++) {
+            var ii = pageArray[i]-1; 
+            if (ii+1 == index)
+                html += "<li class='page-item active' id='page"+ii+"'><a class='page-link'  href='javascript:void(0)' onclick=fun(" +
+                    ii +
+                    ","+pageSize+")>" +
+                    (ii + 1) +
+                    "</a></li>";
+            else {
+                
+                html += "<li class='page-item' id='page"+ii+"'><a class='page-link'  href='javascript:void(0)' onclick=fun(" +
+                    ii +
+                    ","+pageSize+")>" +
+                    (ii + 1) +
+                    "</a></li>";
+                }
+            }
+        
+        if(endButton!=-1)
+            {
+                html += "...";
+                html += "<li class='page-item' id='page"+(totalNum-1)+"'><a class='page-link'  href='javascript:void(0)' onclick=fun("+(totalNum-1)+","+pageSize+")>"+totalNum+"</a></li>"; 
+              
+            }
+        
+        html += "<li class='page-item' id='next' onclick=funNext() >";
+        html += "<a class='page-link' href='javascript:void(0)' >Next</a>";
+        html += "</li>";
+
+        $("#pages").append(html);
+    }
+    
     function funNext() {
 
         fun(pageIndex + 1, pageSize);
@@ -74,7 +124,7 @@
     }
     
     function fun(index,size) {
-        
+         getPaginationList(index); 
         var username = getCookie("userName");
         var userId = getCookie("userId");
 
