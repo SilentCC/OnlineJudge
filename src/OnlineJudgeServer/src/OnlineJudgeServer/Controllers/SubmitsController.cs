@@ -54,6 +54,7 @@ namespace OnlineJudgeServer.Controllers
             var result = new List<object>();
             foreach (var sub in submits)
             {
+                Console.WriteLine(sub.ProblemId);
                 var problem = await _context.Problems.FirstOrDefaultAsync(m => m.ProblemId == sub.ProblemId);
                 var user = await _context.Users.FirstOrDefaultAsync(m => m.UserId == sub.UserId);
                 result.Add(new
