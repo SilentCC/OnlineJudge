@@ -18,15 +18,18 @@ namespace OnlineJudgeServer.Controllers
         private readonly ExecuteCplusProgram _executeCplusProgram;
         private readonly ExecutePythonProgram _executePythonProgram;
         private readonly ExecuteCSharpProgram _executeCSharpProgram;
+        private readonly ExecuteJavaProgram _executeJavaProgram;
         private readonly OnlineJudgeContext _context;
 
         public JudgeController(ExecuteCplusProgram executeCplusProgram, ExecutePythonProgram executePythonProgram,
             ExecuteCSharpProgram executeCSharpProgram,
+            ExecuteJavaProgram executeJavaProgram,
             OnlineJudgeContext context)
         {
             _executeCplusProgram = executeCplusProgram;
             _executePythonProgram = executePythonProgram;
             _executeCSharpProgram = executeCSharpProgram;
+            _executeJavaProgram = executeJavaProgram;
             _context = context;
         }
 
@@ -42,9 +45,14 @@ namespace OnlineJudgeServer.Controllers
                 judgeMachineService = new JudgeMachineService(_executePythonProgram);
                 time = time * 20;
             }
+            else if (submit.CodeType == (int) CodeType.java)
+            {
+               judgeMachineService = new JudgeMachineService(this._executeJavaProgram);
+                time = time * 2;
+            }
             else
             {
-                judgeMachineService = new JudgeMachineService(_executeCSharpProgram);
+                judgeMachineService = new JudgeMachineService(this._executeCSharpProgram);
                 time = time * 2;
             }
 

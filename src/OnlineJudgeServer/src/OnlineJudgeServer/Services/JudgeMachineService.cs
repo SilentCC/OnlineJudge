@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.CodeAnalysis.Operations;
 using OnlineJudgeServer.Models;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
@@ -27,10 +26,10 @@ namespace OnlineJudgeServer.Services
 
         public async Task<JudgeStatus> Judge(Submit submit, double memoryLimit, int timeLimit)
         {
-            var inputData = GetData($"{submit.ProblemId}.input");
-            var outputData = GetData($"{submit.ProblemId}.output");
+            var inputData = GetData($"Source/{submit.ProblemId}.input");
+            var outputData = GetData($"Source/{submit.ProblemId}.output");
 
-            var judgeMode = GetMode($"{submit.ProblemId}.mode");
+            var judgeMode = GetMode($"Source/{submit.ProblemId}.mode");
 
             var executeObj = _executeProgram.Complie(submit);
 
@@ -54,6 +53,7 @@ namespace OnlineJudgeServer.Services
                 {
                     process.Start();
                     //process.BeginErrorReadLine();
+                  
                     var streamWriter = process.StandardInput;
                     var streamReader = process.StandardOutput;
  
@@ -91,8 +91,9 @@ namespace OnlineJudgeServer.Services
                     }
 
                     process.WaitForExit();
-
-                    if (process.ExitCode != 0)
+                    Console.WriteLine(process.ExitCode);
+                    Console.WriteLine(process.StandardError.ToString());
+                    if (process.ExitCode != 0 && process.ExitCode !=1 )
                     {
                         return JudgeStatus.RuntimeError;
                     }
@@ -325,6 +326,7 @@ namespace OnlineJudgeServer.Services
         gcc = 0,
         gplus = 1,
         python = 2,
-        csharp = 3
+        csharp = 3,
+        java = 4
     }
 }

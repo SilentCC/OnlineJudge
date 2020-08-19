@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using OnlineJudgeServer.Models;
 using OnlineJudgeServer.Services;
 using OnlineJudgeServer.Settings;
@@ -31,7 +32,8 @@ namespace OnlineJudgeServer
         {
             services.AddTransient<ExecuteCplusProgram>()
                 .AddTransient<ExecutePythonProgram>()
-                .AddTransient<ExecuteCSharpProgram>();
+                .AddTransient<ExecuteCSharpProgram>()
+                .AddTransient<ExecuteJavaProgram>();
             
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -52,20 +54,21 @@ namespace OnlineJudgeServer
                 });
             });
 
-
-            var connection = @"Server=47.240.2.193;Database=onlineJudge;port=3306;user=root;password=dage123;Convert Zero Datetime=True;Allow Zero Datetime=True;";
+            var connection =
+                @"Server=localhost;Database=onlineJudge;port=3306;user=root;password=Dage_123456.;Convert Zero Datetime=True;";
             services.AddDbContext<OnlineJudgeContext>(options => options.UseMySql(connection,mysqlOptions =>
             {
-                mysqlOptions.ServerVersion(new Version(5, 7, 26), ServerType.MySql); 
+                mysqlOptions.ServerVersion(new Version(5, 7, 31), ServerType.MySql); 
             }));
-            
-            services.Configure<OnlineJudgeServerSettings>(Configuration.GetSection("OnlineJudgeServerSettings"));
-            
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.Configure<OnlineJudgeServerSettings>(this.Configuration.GetSection("OnlineJudgeServerSettings"));
+
+            services.AddControllers();
+            services.AddControllersWithViews().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -78,15 +81,26 @@ namespace OnlineJudgeServer
                 app.UseHsts();
             }
 
+            app.UseRouting();
+            app.UseCors();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
-            app.UseMvc(routes =>
+            
+            /*app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+            });*/
+            
+            app.UseEndpoints(endpoints=>
+            {
+                endpoints.MapControllerRoute(
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
         }
     }

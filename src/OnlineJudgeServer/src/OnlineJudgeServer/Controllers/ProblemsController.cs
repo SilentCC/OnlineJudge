@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using OnlineJudgeServer.Models;
 using OnlineJudgeServer.Services;
 
@@ -27,6 +28,14 @@ namespace OnlineJudgeServer.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Problems.ToListAsync());
+        }
+
+        [HttpGet("api/Problems/lastId")]
+        public async Task<IActionResult> GetLastId()
+        {
+            var problems = await this._context.Problems.ToListAsync();
+
+            return this.Ok(problems.Last().Id);
         }
 
         [HttpGet("api/Problems")]
@@ -57,7 +66,7 @@ namespace OnlineJudgeServer.Controllers
                         }
                     }
                 }
-
+                
                 ans.Add(new HomeProblem
                 {
                     Problem = problem,
